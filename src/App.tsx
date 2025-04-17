@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 import { Layout } from "@/components/layout/layout";
 import { ProjectCard } from "@/components/ui/project-card";
 import { BlogCard } from "@/components/ui/blog-card";
 import { ContactForm } from "@/components/ui/contact-form";
+import { SplashScreen } from "@/components/ui/splash-screen";
 
 // 示例数据
 const projects = [
@@ -86,205 +87,235 @@ const blogPosts = [
   },
 ];
 
+// 用户个人信息（请替换为您自己的信息）
+const userInfo = {
+  name: "张三", // 请替换为您的名字
+  title: "前端开发工程师", // 请替换为您的职位
+  description: "热爱Web开发，专注于创建高性能、用户友好的现代化应用程序", // 请用一句话描述自己
+};
+
 function App() {
   const [activeSection, setActiveSection] = useState("home");
+  const [showSplash, setShowSplash] = useState(true);
+
+  // 禁止滚动当显示开屏动画时
+  useEffect(() => {
+    if (showSplash) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [showSplash]);
+
+  const handleSplashComplete = () => {
+    setShowSplash(false);
+  };
 
   return (
-    <Layout activeSection={activeSection} onSectionChange={setActiveSection}>
-      {/* 首页内容 */}
-      {activeSection === "home" && (
-        <section className="py-10">
-          <div className="max-w-4xl mx-auto text-center mb-10">
-            <h1 className="text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
-              欢迎来到我的个人主页
-            </h1>
-            <p className="text-xl text-slate-600 dark:text-slate-300">
-              我是一名前端开发工程师，专注于创建现代化、高性能的Web应用程序。
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
-            <div className="bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm p-8 rounded-lg shadow">
-              <h2 className="text-2xl font-bold mb-4">我的技能</h2>
-              <div className="flex flex-wrap gap-2">
-                {[
-                  "JavaScript",
-                  "TypeScript",
-                  "React",
-                  "Vue",
-                  "Node.js",
-                  "Next.js",
-                  "Tailwind CSS",
-                  "UI/UX设计",
-                ].map((skill) => (
-                  <span
-                    key={skill}
-                    className="px-3 py-1 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 text-sm"
-                  >
-                    {skill}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            <div className="bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm p-8 rounded-lg shadow">
-              <h2 className="text-2xl font-bold mb-4">最近项目</h2>
-              <ul className="space-y-3">
-                {projects.slice(0, 3).map((project) => (
-                  <li
-                    key={project.id}
-                    className="border-b border-slate-200 dark:border-slate-700 pb-2 last:border-0"
-                  >
-                    <a
-                      href={project.link}
-                      className="hover:text-blue-600 dark:hover:text-blue-400 font-medium"
-                    >
-                      {project.title}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-              <button
-                onClick={() => setActiveSection("projects")}
-                className="mt-4 text-blue-600 dark:text-blue-400 text-sm font-medium hover:underline"
-              >
-                查看所有项目 →
-              </button>
-            </div>
-          </div>
-        </section>
+    <>
+      {showSplash && (
+        <SplashScreen userInfo={userInfo} onComplete={handleSplashComplete} />
       )}
 
-      {/* 关于页面 */}
-      {activeSection === "about" && (
-        <section className="py-10">
-          <h1 className="text-4xl font-bold mb-6">关于我</h1>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="md:col-span-1">
-              <div className="bg-white dark:bg-slate-800 rounded-lg shadow overflow-hidden">
-                <img
-                  src="https://randomuser.me/api/portraits/men/32.jpg"
-                  alt="个人照片"
-                  className="w-full aspect-square object-cover"
-                />
-                <div className="p-4">
-                  <h3 className="text-xl font-bold">张三</h3>
+      <Layout activeSection={activeSection} onSectionChange={setActiveSection}>
+        {/* 首页内容 */}
+        {activeSection === "home" && (
+          <section className="py-10">
+            <div className="max-w-4xl mx-auto text-center mb-10">
+              <h1 className="text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
+                欢迎来到我的个人主页
+              </h1>
+              <p className="text-xl text-slate-600 dark:text-slate-300">
+                我是一名前端开发工程师，专注于创建现代化、高性能的Web应用程序。
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
+              <div className="bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm p-8 rounded-lg shadow">
+                <h2 className="text-2xl font-bold mb-4">我的技能</h2>
+                <div className="flex flex-wrap gap-2">
+                  {[
+                    "JavaScript",
+                    "TypeScript",
+                    "React",
+                    "Vue",
+                    "Node.js",
+                    "Next.js",
+                    "Tailwind CSS",
+                    "UI/UX设计",
+                  ].map((skill) => (
+                    <span
+                      key={skill}
+                      className="px-3 py-1 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 text-sm"
+                    >
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <div className="bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm p-8 rounded-lg shadow">
+                <h2 className="text-2xl font-bold mb-4">最近项目</h2>
+                <ul className="space-y-3">
+                  {projects.slice(0, 3).map((project) => (
+                    <li
+                      key={project.id}
+                      className="border-b border-slate-200 dark:border-slate-700 pb-2 last:border-0"
+                    >
+                      <a
+                        href={project.link}
+                        className="hover:text-blue-600 dark:hover:text-blue-400 font-medium"
+                      >
+                        {project.title}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+                <button
+                  onClick={() => setActiveSection("projects")}
+                  className="mt-4 text-blue-600 dark:text-blue-400 text-sm font-medium hover:underline"
+                >
+                  查看所有项目 →
+                </button>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* 关于页面 */}
+        {activeSection === "about" && (
+          <section className="py-10">
+            <h1 className="text-4xl font-bold mb-6">关于我</h1>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="md:col-span-1">
+                <div className="bg-white dark:bg-slate-800 rounded-lg shadow overflow-hidden">
+                  <img
+                    src="https://randomuser.me/api/portraits/men/32.jpg"
+                    alt="个人照片"
+                    className="w-full aspect-square object-cover"
+                  />
+                  <div className="p-4">
+                    <h3 className="text-xl font-bold">张三</h3>
+                    <p className="text-slate-600 dark:text-slate-300">
+                      前端开发工程师
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="md:col-span-2">
+                <div className="bg-white dark:bg-slate-800 rounded-lg shadow p-6">
+                  <h2 className="text-2xl font-bold mb-4">个人简介</h2>
+                  <p className="text-slate-600 dark:text-slate-300 mb-4">
+                    我是一名拥有5年经验的前端开发工程师，熟悉现代JavaScript框架和库，如React、Vue和Angular。我热衷于创建用户友好的界面和高性能的Web应用程序。
+                  </p>
+                  <p className="text-slate-600 dark:text-slate-300 mb-4">
+                    在过去的工作中，我参与了多个大型项目的开发，包括电子商务平台、内容管理系统和企业应用程序。我擅长将复杂的设计转化为可维护的代码，并确保应用程序在各种设备和浏览器上表现一致。
+                  </p>
                   <p className="text-slate-600 dark:text-slate-300">
-                    前端开发工程师
+                    除了编程，我还喜欢摄影、旅行和阅读。我相信终身学习的重要性，并不断学习新的技术和方法来提升自己的技能。
                   </p>
                 </div>
               </div>
             </div>
+          </section>
+        )}
 
-            <div className="md:col-span-2">
-              <div className="bg-white dark:bg-slate-800 rounded-lg shadow p-6">
-                <h2 className="text-2xl font-bold mb-4">个人简介</h2>
-                <p className="text-slate-600 dark:text-slate-300 mb-4">
-                  我是一名拥有5年经验的前端开发工程师，熟悉现代JavaScript框架和库，如React、Vue和Angular。我热衷于创建用户友好的界面和高性能的Web应用程序。
-                </p>
-                <p className="text-slate-600 dark:text-slate-300 mb-4">
-                  在过去的工作中，我参与了多个大型项目的开发，包括电子商务平台、内容管理系统和企业应用程序。我擅长将复杂的设计转化为可维护的代码，并确保应用程序在各种设备和浏览器上表现一致。
-                </p>
-                <p className="text-slate-600 dark:text-slate-300">
-                  除了编程，我还喜欢摄影、旅行和阅读。我相信终身学习的重要性，并不断学习新的技术和方法来提升自己的技能。
-                </p>
-              </div>
+        {/* 项目页面 */}
+        {activeSection === "projects" && (
+          <section className="py-10">
+            <h1 className="text-4xl font-bold mb-6">项目展示</h1>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {projects.map((project) => (
+                <ProjectCard
+                  key={project.id}
+                  title={project.title}
+                  description={project.description}
+                  tags={project.tags}
+                  imageUrl={project.imageUrl}
+                  link={project.link}
+                />
+              ))}
             </div>
-          </div>
-        </section>
-      )}
+          </section>
+        )}
 
-      {/* 项目页面 */}
-      {activeSection === "projects" && (
-        <section className="py-10">
-          <h1 className="text-4xl font-bold mb-6">项目展示</h1>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {projects.map((project) => (
-              <ProjectCard
-                key={project.id}
-                title={project.title}
-                description={project.description}
-                tags={project.tags}
-                imageUrl={project.imageUrl}
-                link={project.link}
-              />
-            ))}
-          </div>
-        </section>
-      )}
+        {/* 博客页面 */}
+        {activeSection === "blog" && (
+          <section className="py-10">
+            <h1 className="text-4xl font-bold mb-6">博客文章</h1>
+            <div className="space-y-8">
+              {blogPosts.map((post) => (
+                <BlogCard
+                  key={post.id}
+                  title={post.title}
+                  excerpt={post.excerpt}
+                  publishDate={post.publishDate}
+                  imageUrl={post.imageUrl}
+                  author={post.author}
+                  tags={post.tags}
+                  url={post.url}
+                />
+              ))}
+            </div>
+          </section>
+        )}
 
-      {/* 博客页面 */}
-      {activeSection === "blog" && (
-        <section className="py-10">
-          <h1 className="text-4xl font-bold mb-6">博客文章</h1>
-          <div className="space-y-8">
-            {blogPosts.map((post) => (
-              <BlogCard
-                key={post.id}
-                title={post.title}
-                excerpt={post.excerpt}
-                publishDate={post.publishDate}
-                imageUrl={post.imageUrl}
-                author={post.author}
-                tags={post.tags}
-                url={post.url}
-              />
-            ))}
-          </div>
-        </section>
-      )}
-
-      {/* 联系页面 */}
-      {activeSection === "contact" && (
-        <section className="py-10">
-          <h1 className="text-4xl font-bold mb-6">联系我</h1>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div>
-              <div className="bg-white dark:bg-slate-800 rounded-lg shadow p-6">
-                <h2 className="text-2xl font-bold mb-4">联系方式</h2>
-                <ul className="space-y-4">
-                  <li className="flex items-start">
-                    <span className="mr-2">📧</span>
-                    <span>email@example.com</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="mr-2">📞</span>
-                    <span>+86 123 4567 8910</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="mr-2">📍</span>
-                    <span>北京市海淀区</span>
-                  </li>
-                </ul>
-                <h3 className="text-xl font-bold mt-6 mb-3">社交媒体</h3>
-                <div className="flex space-x-4">
-                  <a
-                    href="#"
-                    className="text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400"
-                  >
-                    <span className="text-2xl">🐦</span>
-                  </a>
-                  <a
-                    href="#"
-                    className="text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400"
-                  >
-                    <span className="text-2xl">📸</span>
-                  </a>
-                  <a
-                    href="#"
-                    className="text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400"
-                  >
-                    <span className="text-2xl">👨‍💻</span>
-                  </a>
+        {/* 联系页面 */}
+        {activeSection === "contact" && (
+          <section className="py-10">
+            <h1 className="text-4xl font-bold mb-6">联系我</h1>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div>
+                <div className="bg-white dark:bg-slate-800 rounded-lg shadow p-6">
+                  <h2 className="text-2xl font-bold mb-4">联系方式</h2>
+                  <ul className="space-y-4">
+                    <li className="flex items-start">
+                      <span className="mr-2">📧</span>
+                      <span>email@example.com</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="mr-2">📞</span>
+                      <span>+86 123 4567 8910</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="mr-2">📍</span>
+                      <span>北京市海淀区</span>
+                    </li>
+                  </ul>
+                  <h3 className="text-xl font-bold mt-6 mb-3">社交媒体</h3>
+                  <div className="flex space-x-4">
+                    <a
+                      href="#"
+                      className="text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400"
+                    >
+                      <span className="text-2xl">🐦</span>
+                    </a>
+                    <a
+                      href="#"
+                      className="text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400"
+                    >
+                      <span className="text-2xl">📸</span>
+                    </a>
+                    <a
+                      href="#"
+                      className="text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400"
+                    >
+                      <span className="text-2xl">👨‍💻</span>
+                    </a>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <ContactForm />
-          </div>
-        </section>
-      )}
-    </Layout>
+              <ContactForm />
+            </div>
+          </section>
+        )}
+      </Layout>
+    </>
   );
 }
 
