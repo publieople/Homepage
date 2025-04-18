@@ -1,9 +1,16 @@
-import { ReactNode } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { Dock, DockIcon } from "../magicui/dock";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { LanguageToggle } from "@/components/ui/language-toggle";
-import { HomeIcon, FolderIcon, ExternalLinkIcon, MailIcon } from "lucide-react";
+import {
+  HomeIcon,
+  FolderIcon,
+  ExternalLinkIcon,
+  MailIcon,
+  MenuIcon,
+  XIcon,
+} from "lucide-react";
 import { DockContainer } from "@/components/ui/dock-container";
 import { Particles } from "../magicui/particles";
 import { ShineBorder } from "../magicui/shine-border";
@@ -35,6 +42,31 @@ export function Layout({
   dockAutoHide = true,
 }: LayoutProps) {
   const { t } = useLanguage();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // 检测屏幕尺寸变化
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsMobile(window.innerWidth < 640);
+    };
+
+    // 初始检查
+    checkScreenSize();
+
+    // 监听窗口尺寸变化
+    window.addEventListener("resize", checkScreenSize);
+
+    // 清理监听器
+    return () => window.removeEventListener("resize", checkScreenSize);
+  }, []);
+
+  // 关闭移动菜单当窗口变大时
+  useEffect(() => {
+    if (!isMobile) {
+      setIsMobileMenuOpen(false);
+    }
+  }, [isMobile]);
 
   const navItems: NavItem[] = [
     { key: "home", label: t.navigation.home, icon: HomeIcon },
@@ -52,7 +84,7 @@ export function Layout({
     { key: "contact", label: t.navigation.contact, icon: MailIcon },
   ];
 
-  // 处理导航项点击，对于外部链接不同处理
+  // 处理导航项点击
   const handleItemClick = (item: NavItem) => {
     if (item.external && item.key === "blog" && externalBlogUrl) {
       // 如果是博客外部链接，直接打开
@@ -60,6 +92,11 @@ export function Layout({
     } else {
       // 其他情况，调用传入的点击处理函数
       onSectionChange(item.key);
+    }
+
+    // 如果移动菜单是打开的，点击后关闭它
+    if (isMobileMenuOpen) {
+      setIsMobileMenuOpen(false);
     }
   };
 
@@ -70,11 +107,11 @@ export function Layout({
         className
       )}
     >
-      {/* 粒子背景效果 */}
+      {/* 粒子背景效果 - 在移动设备上减少数量 */}
       <Particles
         className="fixed inset-0 -z-10"
-        quantity={300}
-        staticity={30}
+        quantity={isMobile ? 150 : 300}
+        staticity={isMobile ? 50 : 30}
         color={
           typeof document !== "undefined" &&
           document.documentElement.classList.contains("dark")
@@ -90,9 +127,54 @@ export function Layout({
       {/* 装饰背景元素 */}
       <div className="fixed inset-0 -z-30 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] dark:bg-[radial-gradient(#1f2937_1px,transparent_1px)] [background-size:20px_20px] opacity-20"></div>
 
-      {/* 主要内容区域 - 占满全屏 */}
-      <div className="flex-1 flex flex-col relative z-10 m-4 sm:m-8 md:m-12">
-        <div className="relative flex-1 bg-white/40 dark:bg-slate-900/40 backdrop-blur-md rounded-3xl shadow-xl border border-slate-200/50 dark:border-slate-700/50 overflow-hidden">
+      {/* 移动设备菜单按钮 */}
+      {isMobile && (
+        <button
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          className="fixed top-4 right-4 z-50 p-2 bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm rounded-lg shadow-md"
+          aria-label={isMobileMenuOpen ? "关闭菜单" : "打开菜单"}
+        >
+          {isMobileMenuOpen ? (
+            <XIcon className="w-6 h-6 text-slate-700 dark:text-slate-200" />
+          ) : (
+            <MenuIcon className="w-6 h-6 text-slate-700 dark:text-slate-200" />
+          )}
+        </button>
+      )}
+
+      {/* 移动设备导航菜单 */}
+      {isMobile && isMobileMenuOpen && (
+        <div className="fixed inset-0 z-40 bg-slate-900/50 backdrop-blur-sm flex justify-end items-start">
+          <div className="w-64 h-full bg-white dark:bg-slate-800 p-6 shadow-xl animate-in slide-in-from-right">
+            <div className="space-y-6 pt-10">
+              {navItems.map((item) => (
+                <button
+                  key={item.key}
+                  onClick={() => handleItemClick(item)}
+                  className={`flex items-center gap-2 w-full p-2 rounded-lg transition-colors ${
+                    activeSection === item.key
+                      ? "bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400"
+                      : "hover:bg-slate-100 dark:hover:bg-slate-700/50"
+                  }`}
+                >
+                  <item.icon className="w-5 h-5" />
+                  <span>{item.label}</span>
+                </button>
+              ))}
+
+              {/* 移动菜单中的语言和主题切换 */}
+              <div className="flex items-center gap-2 pt-4 border-t border-slate-200 dark:border-slate-700">
+                <LanguageToggle />
+                <ThemeToggle />
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* 主要内容区域 - 调整移动端边距 */}
+      <div className="flex-1 flex flex-col relative z-10 m-2 sm:m-4 md:m-8 lg:m-12">
+        <div className="relative flex-1 bg-white/40 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl sm:rounded-3xl shadow-xl border border-slate-200/50 dark:border-slate-700/50 overflow-hidden">
           <ShineBorder
             borderWidth={3}
             duration={8}
@@ -101,45 +183,52 @@ export function Layout({
               "rgba(232, 121, 249, 0.4)", // 粉紫色
               "rgba(59, 130, 246, 0.4)", // 蓝色
             ]}
-            className="rounded-3xl"
+            className="rounded-2xl sm:rounded-3xl"
           />
 
-          <main className="p-6 md:p-8 overflow-auto h-full">{children}</main>
+          <main className="p-4 sm:p-6 md:p-8 overflow-auto h-full">
+            {children}
+          </main>
         </div>
       </div>
 
-      {/* 模糊导航条 */}
-      <DockContainer autoHide={dockAutoHide} className="bottom-8 z-20">
-        <Dock className="border-slate-200/30 dark:border-slate-700/30 shadow-lg backdrop-blur-xl">
-          {navItems.map((item) => (
-            <DockIcon key={item.key}>
-              <button
-                title={item.label}
-                aria-label={item.label}
-                className={`flex items-center justify-center size-9 rounded-full transition-all duration-300 ${
-                  activeSection === item.key
-                    ? "text-blue-600 dark:text-blue-400 bg-white/70 dark:bg-black/50 shadow-md"
-                    : "text-slate-600 hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400 hover:bg-white/40 dark:hover:bg-black/20"
-                }`}
-                onClick={() => handleItemClick(item)}
-              >
-                <item.icon className="size-5" />
-              </button>
+      {/* 桌面端底部导航栏 */}
+      {!isMobile && (
+        <DockContainer
+          autoHide={dockAutoHide}
+          className="bottom-4 sm:bottom-8 z-20"
+        >
+          <Dock className="border-slate-200/30 dark:border-slate-700/30 shadow-lg backdrop-blur-xl">
+            {navItems.map((item) => (
+              <DockIcon key={item.key}>
+                <button
+                  title={item.label}
+                  aria-label={item.label}
+                  className={`flex items-center justify-center size-9 rounded-full transition-all duration-300 ${
+                    activeSection === item.key
+                      ? "text-blue-600 dark:text-blue-400 bg-white/70 dark:bg-black/50 shadow-md"
+                      : "text-slate-600 hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400 hover:bg-white/40 dark:hover:bg-black/20"
+                  }`}
+                  onClick={() => handleItemClick(item)}
+                >
+                  <item.icon className="size-5" />
+                </button>
+              </DockIcon>
+            ))}
+            <DockIcon>
+              <LanguageToggle className="shadow-md hover:shadow-lg transition-shadow" />
             </DockIcon>
-          ))}
-          <DockIcon>
-            <LanguageToggle className="shadow-md hover:shadow-lg transition-shadow" />
-          </DockIcon>
-          <DockIcon>
-            <ThemeToggle className="shadow-md hover:shadow-lg transition-shadow" />
-          </DockIcon>
-        </Dock>
-      </DockContainer>
+            <DockIcon>
+              <ThemeToggle className="shadow-md hover:shadow-lg transition-shadow" />
+            </DockIcon>
+          </Dock>
+        </DockContainer>
+      )}
 
-      {/* 页脚 - 移至固定位置在底部，但在内容框内 */}
+      {/* 页脚 - 调整底部间距，适应移动设备 */}
       <div className="absolute bottom-0 left-0 right-0 z-10 pointer-events-none">
-        <div className="container mx-auto px-4 text-center text-slate-600 dark:text-slate-400 pb-20">
-          <p className="pointer-events-auto">
+        <div className="container mx-auto px-4 text-center text-slate-600 dark:text-slate-400 pb-16 sm:pb-20">
+          <p className="pointer-events-auto text-xs sm:text-sm">
             {t.footer.copyright.replace(
               "{year}",
               new Date().getFullYear().toString()

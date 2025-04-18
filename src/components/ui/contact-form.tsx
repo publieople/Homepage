@@ -5,6 +5,7 @@ import { useLanguage } from "@/lib/language-context";
 
 interface ContactFormProps {
   className?: string;
+  isMobile?: boolean;
   onSubmit?: (formData: {
     name: string;
     email: string;
@@ -12,7 +13,11 @@ interface ContactFormProps {
   }) => Promise<void>;
 }
 
-export function ContactForm({ className, onSubmit }: ContactFormProps) {
+export function ContactForm({
+  className,
+  isMobile = false,
+  onSubmit,
+}: ContactFormProps) {
   const { language } = useLanguage();
 
   const [formData, setFormData] = useState({
@@ -95,25 +100,28 @@ export function ContactForm({ className, onSubmit }: ContactFormProps) {
   return (
     <div
       className={cn(
-        "bg-white dark:bg-slate-800 rounded-lg shadow p-6",
+        "bg-white dark:bg-slate-800 rounded-lg shadow p-4 sm:p-6",
         className
       )}
     >
       {submitStatus.type === "success" && (
-        <div className="mb-4 p-3 bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded-lg">
+        <div className="mb-3 sm:mb-4 p-2 sm:p-3 bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded-lg text-xs sm:text-sm">
           {submitStatus.message}
         </div>
       )}
 
       {submitStatus.type === "error" && (
-        <div className="mb-4 p-3 bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-300 rounded-lg">
+        <div className="mb-3 sm:mb-4 p-2 sm:p-3 bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-300 rounded-lg text-xs sm:text-sm">
           {submitStatus.message}
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
         <div>
-          <label htmlFor="name" className="block text-sm font-medium mb-1">
+          <label
+            htmlFor="name"
+            className="block text-xs sm:text-sm font-medium mb-1"
+          >
             {language === "zh" ? "姓名" : "Name"}{" "}
             <span className="text-red-500">*</span>
           </label>
@@ -126,13 +134,16 @@ export function ContactForm({ className, onSubmit }: ContactFormProps) {
             placeholder={
               language === "zh" ? "请输入您的姓名" : "Enter your name"
             }
-            className="w-full px-4 py-2 rounded border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700"
+            className="w-full px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm rounded border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700"
             required
           />
         </div>
 
         <div>
-          <label htmlFor="email" className="block text-sm font-medium mb-1">
+          <label
+            htmlFor="email"
+            className="block text-xs sm:text-sm font-medium mb-1"
+          >
             {language === "zh" ? "邮箱" : "Email"}{" "}
             <span className="text-red-500">*</span>
           </label>
@@ -147,13 +158,16 @@ export function ContactForm({ className, onSubmit }: ContactFormProps) {
                 ? "请输入您的邮箱地址"
                 : "Enter your email address"
             }
-            className="w-full px-4 py-2 rounded border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700"
+            className="w-full px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm rounded border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700"
             required
           />
         </div>
 
         <div>
-          <label htmlFor="message" className="block text-sm font-medium mb-1">
+          <label
+            htmlFor="message"
+            className="block text-xs sm:text-sm font-medium mb-1"
+          >
             {language === "zh" ? "留言" : "Message"}{" "}
             <span className="text-red-500">*</span>
           </label>
@@ -165,7 +179,7 @@ export function ContactForm({ className, onSubmit }: ContactFormProps) {
             placeholder={
               language === "zh" ? "请输入您的留言内容" : "Enter your message"
             }
-            className="w-full px-4 py-2 rounded border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 min-h-32"
+            className="w-full px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm rounded border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 min-h-24 sm:min-h-32"
             required
           ></textarea>
         </div>
@@ -174,7 +188,9 @@ export function ContactForm({ className, onSubmit }: ContactFormProps) {
           type="submit"
           variant="default"
           disabled={isSubmitting}
-          className="w-full md:w-auto"
+          className={`w-full text-xs sm:text-sm py-1.5 sm:py-2 h-auto ${
+            isMobile ? "" : "md:w-auto"
+          }`}
         >
           {isSubmitting
             ? language === "zh"

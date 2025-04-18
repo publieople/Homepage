@@ -1,26 +1,27 @@
 import { cn } from "@/lib/utils";
+import { Project } from "@/components/sections/projects";
 
 interface ProjectCardProps {
-  title: string;
-  description: string;
-  tags?: string[];
-  imageUrl?: string;
-  link?: string;
+  project: Project;
   className?: string;
+  isMobile?: boolean;
 }
 
 export function ProjectCard({
-  title,
-  description,
-  tags = [],
-  imageUrl,
-  link,
-  className
+  project,
+  className,
+  isMobile = false,
 }: ProjectCardProps) {
+  const { title, description, tags = [], imageUrl, link } = project;
+
   const cardContent = (
     <>
       {imageUrl && (
-        <div className="relative h-48 mb-4 overflow-hidden rounded-lg">
+        <div
+          className={`relative ${
+            isMobile ? "h-36" : "h-40 sm:h-48"
+          } mb-3 sm:mb-4 overflow-hidden rounded-lg`}
+        >
           <img
             src={imageUrl}
             alt={title}
@@ -28,15 +29,23 @@ export function ProjectCard({
           />
         </div>
       )}
-      <h3 className="text-xl font-bold mb-2">{title}</h3>
-      <p className="text-slate-600 dark:text-slate-300 mb-4">{description}</p>
+      <h3
+        className={`${
+          isMobile ? "text-lg" : "text-lg sm:text-xl"
+        } font-bold mb-1 sm:mb-2`}
+      >
+        {title}
+      </h3>
+      <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mb-3 sm:mb-4">
+        {description}
+      </p>
 
       {tags.length > 0 && (
-        <div className="flex flex-wrap gap-2 mt-auto">
+        <div className="flex flex-wrap gap-1 sm:gap-2 mt-auto">
           {tags.map((tag, i) => (
             <span
               key={i}
-              className="text-xs px-2 py-1 rounded bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300"
+              className="text-[10px] sm:text-xs px-1.5 sm:px-2 py-0.5 sm:py-1 rounded bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300"
             >
               {tag}
             </span>
@@ -47,10 +56,12 @@ export function ProjectCard({
   );
 
   return (
-    <div className={cn(
-      "bg-white dark:bg-slate-800 rounded-lg shadow p-6 flex flex-col h-full transition-transform hover:translate-y-[-4px]",
-      className
-    )}>
+    <div
+      className={cn(
+        "bg-white dark:bg-slate-800 rounded-lg shadow p-3 sm:p-6 flex flex-col h-full transition-transform hover:translate-y-[-4px]",
+        className
+      )}
+    >
       {link ? (
         <a
           href={link}
