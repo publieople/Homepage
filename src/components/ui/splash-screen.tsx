@@ -71,7 +71,7 @@ export function SplashScreen({
   useEffect(() => {
     const timer = setTimeout(() => {
       setProgressComplete(true);
-    }, 14000); // 设置为比最后一个动画的延迟稍长
+    }, 13000); // 调整为新的最后动画延迟时间加上一些缓冲
 
     return () => clearTimeout(timer);
   }, []);
@@ -102,36 +102,66 @@ export function SplashScreen({
       <div className="w-full h-auto max-w-4xl mt-4 sm:mt-8 md:mt-16">
         <Terminal className="font-mono text-xs sm:text-sm min-h-[50vh] sm:min-h-[60vh] max-h-[80vh] w-full border-slate-700 bg-slate-950 shadow-2xl">
           {/* 系统启动 */}
-          <TypingAnimation duration={10} className="text-green-400">
-            [system] $ zsh startup.sh
-          </TypingAnimation>
+          <div className="flex items-start">
+            <span className="text-green-400 mr-2">[system] $</span>
+            <TypingAnimation duration={10} className="text-green-400">
+              zsh startup.sh
+            </TypingAnimation>
+          </div>
 
           {/* 连接服务器 */}
-          <AnimatedSpan delay={1500} className="text-blue-400">
-            <span>[system] $ connect --server=portfolio.server --port=443</span>
-          </AnimatedSpan>
+          <div className="flex items-start">
+            <AnimatedSpan delay={1000} className="text-blue-400 mr-2">
+              [system] $
+            </AnimatedSpan>
+            <TypingAnimation
+              delay={1500}
+              duration={10}
+              className="text-blue-400"
+            >
+              connect --server=portfolio.server --port=443
+            </TypingAnimation>
+          </div>
 
-          <AnimatedSpan delay={1700} className="text-yellow-400">
+          <AnimatedSpan delay={1800} className="text-yellow-400">
             <span>Connecting to portfolio.server...</span>
           </AnimatedSpan>
 
-          <AnimatedSpan delay={1900} className="text-green-500">
+          <AnimatedSpan delay={2000} className="text-green-500">
             <span>Connection established. Handshake completed.</span>
           </AnimatedSpan>
 
           {/* 认证过程 */}
-          <TypingAnimation delay={2100} duration={20} className="text-blue-400">
-            [system] $ auth --token=visitor_session
-          </TypingAnimation>
+          <div className="flex items-start">
+            <AnimatedSpan delay={2100} className="text-blue-400 mr-2">
+              [system] $
+            </AnimatedSpan>
+            <TypingAnimation
+              delay={2130}
+              duration={20}
+              className="text-blue-400"
+            >
+              auth --token=visitor_session
+            </TypingAnimation>
+          </div>
 
-          <AnimatedSpan delay={3800} className="text-green-500">
+          <AnimatedSpan delay={2300} className="text-green-500">
             <span>Authentication successful. Welcome, visitor.</span>
           </AnimatedSpan>
 
           {/* 加载用户资料 */}
-          <TypingAnimation delay={4000} duration={20} className="text-blue-400">
-            [system] $ load-profile --target=author
-          </TypingAnimation>
+          <div className="flex items-start">
+            <AnimatedSpan delay={4000} className="text-blue-400 mr-2">
+              [system] $
+            </AnimatedSpan>
+            <TypingAnimation
+              delay={4030}
+              duration={20}
+              className="text-blue-400"
+            >
+              load-profile --target=author
+            </TypingAnimation>
+          </div>
 
           <AnimatedSpan delay={5000} className="text-cyan-400">
             <span>Fetching profile data...</span>
@@ -165,9 +195,18 @@ export function SplashScreen({
           </AnimatedSpan>
 
           {/* 初始化应用 */}
-          <TypingAnimation delay={8000} duration={10} className="text-blue-400">
-            [system] $ init-app --target=portfolio
-          </TypingAnimation>
+          <div className="flex items-start">
+            <AnimatedSpan delay={8000} className="text-blue-400 mr-2">
+              [system] $
+            </AnimatedSpan>
+            <TypingAnimation
+              delay={8030}
+              duration={10}
+              className="text-blue-400"
+            >
+              init-app --target=portfolio
+            </TypingAnimation>
+          </div>
 
           <AnimatedSpan delay={8500} className="text-yellow-300">
             <span>Initializing application...</span>
@@ -208,13 +247,18 @@ export function SplashScreen({
           </AnimatedSpan>
 
           {/* 最终启动 */}
-          <TypingAnimation
-            delay={11200}
-            duration={10}
-            className="text-blue-400"
-          >
-            [system] $ launch
-          </TypingAnimation>
+          <div className="flex items-start">
+            <AnimatedSpan delay={11200} className="text-blue-400 mr-2">
+              [system] $
+            </AnimatedSpan>
+            <TypingAnimation
+              delay={11230}
+              duration={10}
+              className="text-blue-400"
+            >
+              launch
+            </TypingAnimation>
+          </div>
 
           <AnimatedSpan delay={12000} className="text-green-500 font-bold">
             <span>Welcome to {userInfo.name}'s portfolio!</span>
