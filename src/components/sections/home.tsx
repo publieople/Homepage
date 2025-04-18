@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { EXTERNAL_BLOG_URL } from "@/App";
+import { AuroraText } from "@/components/magicui/aurora-text";
 
 interface HomeProps {
   className?: string;
@@ -9,8 +10,8 @@ const Home: FC<HomeProps> = ({ className }) => {
   return (
     <section className={className}>
       <div className="max-w-4xl mx-auto text-center mb-10">
-        <h1 className="text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
-          欢迎来到我的个人主页
+        <h1 className="text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r ">
+          <AuroraText speed={2}>欢迎来到我的个人主页</AuroraText>
         </h1>
         <p className="text-xl text-slate-600 dark:text-slate-300">
           我是一名前端开发工程师，专注于创建现代化、高性能的Web应用程序。

@@ -59,7 +59,7 @@ function App() {
       // 延迟一小段时间再渲染主内容，使其显得更自然
       const timer = setTimeout(() => {
         setMainContentLoaded(true);
-      }, 300);
+      }, 100);
       return () => clearTimeout(timer);
     }
   }, [showSplash]);
