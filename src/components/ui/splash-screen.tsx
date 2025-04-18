@@ -103,24 +103,24 @@ export function SplashScreen({
         <Terminal className="font-mono text-xs sm:text-sm min-h-[50vh] sm:min-h-[60vh] max-h-[80vh] w-full border-slate-700 bg-slate-950 shadow-2xl">
           {/* 系统启动 */}
           <TypingAnimation duration={10} className="text-green-400">
-            [system] $ bash startup.sh
+            [system] $ zsh startup.sh
           </TypingAnimation>
 
           {/* 连接服务器 */}
-          <AnimatedSpan delay={1000} className="text-blue-400">
+          <AnimatedSpan delay={1500} className="text-blue-400">
             <span>[system] $ connect --server=portfolio.server --port=443</span>
           </AnimatedSpan>
 
-          <AnimatedSpan delay={1600} className="text-yellow-400">
+          <AnimatedSpan delay={1700} className="text-yellow-400">
             <span>Connecting to portfolio.server...</span>
           </AnimatedSpan>
 
-          <AnimatedSpan delay={2200} className="text-green-500">
+          <AnimatedSpan delay={1900} className="text-green-500">
             <span>Connection established. Handshake completed.</span>
           </AnimatedSpan>
 
           {/* 认证过程 */}
-          <TypingAnimation delay={3000} duration={40} className="text-blue-400">
+          <TypingAnimation delay={2100} duration={20} className="text-blue-400">
             [system] $ auth --token=visitor_session
           </TypingAnimation>
 
@@ -129,99 +129,99 @@ export function SplashScreen({
           </AnimatedSpan>
 
           {/* 加载用户资料 */}
-          <TypingAnimation delay={4500} duration={40} className="text-blue-400">
+          <TypingAnimation delay={4000} duration={20} className="text-blue-400">
             [system] $ load-profile --target=author
           </TypingAnimation>
 
-          <AnimatedSpan delay={5300} className="text-cyan-400">
+          <AnimatedSpan delay={5000} className="text-cyan-400">
             <span>Fetching profile data...</span>
           </AnimatedSpan>
 
-          <AnimatedSpan delay={6000} className="text-white">
+          <AnimatedSpan delay={5100} className="text-white">
             <span>{`{`}</span>
           </AnimatedSpan>
 
-          <AnimatedSpan delay={6200} className="text-white pl-4">
+          <AnimatedSpan delay={5200} className="text-white pl-4">
             <span className="text-purple-400">"name":</span>{" "}
             <span className="text-yellow-300">"{userInfo.name}",</span>
           </AnimatedSpan>
 
-          <AnimatedSpan delay={6500} className="text-white pl-4">
+          <AnimatedSpan delay={5300} className="text-white pl-4">
             <span className="text-purple-400">"position":</span>{" "}
             <span className="text-yellow-300">"{userInfo.title}",</span>
           </AnimatedSpan>
 
-          <AnimatedSpan delay={6800} className="text-white pl-4">
+          <AnimatedSpan delay={5400} className="text-white pl-4">
             <span className="text-purple-400">"bio":</span>{" "}
             <span className="text-yellow-300">"{userInfo.description}"</span>
           </AnimatedSpan>
 
-          <AnimatedSpan delay={7100} className="text-white">
+          <AnimatedSpan delay={5500} className="text-white">
             <span>{`}`}</span>
           </AnimatedSpan>
 
-          <AnimatedSpan delay={7400} className="text-green-400">
+          <AnimatedSpan delay={5700} className="text-green-400">
             <span>Profile loaded successfully.</span>
           </AnimatedSpan>
 
           {/* 初始化应用 */}
-          <TypingAnimation delay={8000} duration={40} className="text-blue-400">
+          <TypingAnimation delay={8000} duration={10} className="text-blue-400">
             [system] $ init-app --target=portfolio
           </TypingAnimation>
 
-          <AnimatedSpan delay={8800} className="text-yellow-300">
+          <AnimatedSpan delay={8500} className="text-yellow-300">
             <span>Initializing application...</span>
           </AnimatedSpan>
 
-          <AnimatedSpan delay={9200} className="text-white">
+          <AnimatedSpan delay={9000} className="text-white">
             <span>[ ] Loading components</span>
           </AnimatedSpan>
 
-          <AnimatedSpan delay={9700} className="text-white">
+          <AnimatedSpan delay={9300} className="text-white">
             <span>
               [<span className="text-green-500">✓</span>] Loading components
             </span>
           </AnimatedSpan>
 
-          <AnimatedSpan delay={10000} className="text-white">
+          <AnimatedSpan delay={9400} className="text-white">
             <span>[ ] Compiling styles</span>
           </AnimatedSpan>
 
-          <AnimatedSpan delay={10500} className="text-white">
+          <AnimatedSpan delay={9700} className="text-white">
             <span>
               [<span className="text-green-500">✓</span>] Compiling styles
             </span>
           </AnimatedSpan>
 
-          <AnimatedSpan delay={10800} className="text-white">
+          <AnimatedSpan delay={9800} className="text-white">
             <span>[ ] Initializing events</span>
           </AnimatedSpan>
 
-          <AnimatedSpan delay={11300} className="text-white">
+          <AnimatedSpan delay={10100} className="text-white">
             <span>
               [<span className="text-green-500">✓</span>] Initializing events
             </span>
           </AnimatedSpan>
 
-          <AnimatedSpan delay={11800} className="text-green-500">
+          <AnimatedSpan delay={10200} className="text-green-500">
             <span>Application initialized successfully!</span>
           </AnimatedSpan>
 
           {/* 最终启动 */}
           <TypingAnimation
-            delay={12300}
-            duration={50}
+            delay={11200}
+            duration={10}
             className="text-blue-400"
           >
             [system] $ launch
           </TypingAnimation>
 
-          <AnimatedSpan delay={13000} className="text-green-500 font-bold">
+          <AnimatedSpan delay={12000} className="text-green-500 font-bold">
             <span>Welcome to {userInfo.name}'s portfolio!</span>
           </AnimatedSpan>
 
           {/* 提示按任意键继续 */}
-          <AnimatedSpan delay={13800} className="text-gray-400 mt-2">
+          <AnimatedSpan delay={12500} className="text-gray-400 mt-2">
             <span>
               {canSkip
                 ? "Press any key or click to continue..."
