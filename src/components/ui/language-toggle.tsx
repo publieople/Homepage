@@ -18,16 +18,13 @@ export function LanguageToggle({ className }: LanguageToggleProps) {
     <button
       onClick={toggleLanguage}
       className={cn(
-        "flex h-9 w-9 items-center justify-center rounded-full bg-white dark:bg-slate-800",
-        "text-slate-700 dark:text-slate-200 shadow-md",
-        "hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500",
-        "transition-all duration-300 ease-in-out",
+        "w-9 h-9 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center transition-colors",
         className
       )}
       title={language === "zh" ? "Switch to English" : "切换到中文"}
       aria-label={language === "zh" ? "Switch to English" : "切换到中文"}
     >
-      <TranslateIcon className="size-5" />
+      <TranslateIcon className="size-5 text-slate-700 dark:text-slate-200" />
     </button>
   );
 }

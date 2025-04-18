@@ -3,14 +3,12 @@ import { cn } from "@/lib/utils";
 import { Dock, DockIcon } from "../magicui/dock";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { LanguageToggle } from "@/components/ui/language-toggle";
-import {
-  HomeIcon,
-  FolderIcon,
-  ExternalLinkIcon,
-  MailIcon,
-  MenuIcon,
-  XIcon,
-} from "lucide-react";
+import { HomeIcon } from "@/components/ui/icons/home-icon";
+import { FolderIcon } from "@/components/ui/icons/folder-icon";
+import { ExternalLinkIcon } from "@/components/ui/icons/external-link-icon";
+import { MailIcon } from "@/components/ui/icons/mail-icon";
+import { MenuIcon } from "@/components/ui/icons/menu-icon";
+import { XIcon } from "@/components/ui/icons/x-icon";
 import { DockContainer } from "@/components/ui/dock-container";
 import { Particles } from "../magicui/particles";
 import { ShineBorder } from "../magicui/shine-border";
