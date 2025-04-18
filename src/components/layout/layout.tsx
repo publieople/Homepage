@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import { Dock, DockIcon } from "../magicui/dock";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
+import { HomeIcon, FolderIcon, ExternalLinkIcon, MailIcon } from "lucide-react";
 
 interface LayoutProps {
   children: ReactNode;
@@ -19,12 +20,12 @@ export function Layout({
   externalBlogUrl,
 }: LayoutProps) {
   const navItems = [
-    { key: "home", label: "首页" },
-    { key: "projects", label: "项目" },
+    { key: "home", label: "首页", icon: HomeIcon },
+    { key: "projects", label: "项目", icon: FolderIcon },
     ...(externalBlogUrl
-      ? [{ key: "blog", label: "博客", external: true }]
+      ? [{ key: "blog", label: "博客", external: true, icon: ExternalLinkIcon }]
       : []),
-    { key: "contact", label: "联系" },
+    { key: "contact", label: "联系", icon: MailIcon },
   ];
 
   // 处理导航项点击，对于外部链接不同处理
@@ -50,31 +51,16 @@ export function Layout({
           {navItems.map((item) => (
             <DockIcon key={item.key}>
               <button
-                className={`text-sm font-medium transition-colors rounded-full p-2 ${
+                title={item.label}
+                aria-label={item.label}
+                className={`flex items-center justify-center size-9 rounded-full transition-colors ${
                   activeSection === item.key
                     ? "text-blue-600 dark:text-blue-400 bg-white/50 dark:bg-black/30"
                     : "text-slate-600 hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400"
-                } ${item.external ? "flex items-center gap-1" : ""}`}
+                }`}
                 onClick={() => handleItemClick(item)}
               >
-                {item.label}
-                {item.external && (
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="12"
-                    height="12"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                    <polyline points="15 3 21 3 21 9"></polyline>
-                    <line x1="10" y1="14" x2="21" y2="3"></line>
-                  </svg>
-                )}
+                <item.icon className="size-5" />
               </button>
             </DockIcon>
           ))}
