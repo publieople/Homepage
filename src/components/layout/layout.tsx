@@ -5,6 +5,14 @@ import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { HomeIcon, FolderIcon, ExternalLinkIcon, MailIcon } from "lucide-react";
 import { DockContainer } from "@/components/ui/dock-container";
 
+// 定义导航项类型
+interface NavItem {
+  key: string;
+  label: string;
+  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+  external?: boolean;
+}
+
 interface LayoutProps {
   children: ReactNode;
   activeSection: string;
@@ -22,7 +30,7 @@ export function Layout({
   externalBlogUrl,
   dockAutoHide = true,
 }: LayoutProps) {
-  const navItems = [
+  const navItems: NavItem[] = [
     { key: "home", label: "首页", icon: HomeIcon },
     { key: "projects", label: "项目", icon: FolderIcon },
     ...(externalBlogUrl
@@ -32,7 +40,7 @@ export function Layout({
   ];
 
   // 处理导航项点击，对于外部链接不同处理
-  const handleItemClick = (item: any) => {
+  const handleItemClick = (item: NavItem) => {
     if (item.external && item.key === "blog" && externalBlogUrl) {
       // 如果是博客外部链接，直接打开
       window.open(externalBlogUrl, "_blank", "noopener,noreferrer");
@@ -45,21 +53,26 @@ export function Layout({
   return (
     <div
       className={cn(
-        "min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800",
+        "min-h-screen bg-gradient-to-br from-blue-50 via-slate-50 to-purple-50 dark:from-slate-950 dark:via-slate-900 dark:to-blue-950",
+        "transition-colors duration-300 ease-in-out",
         className
       )}
     >
+      {/* 装饰背景元素 */}
+      <div className="fixed inset-0 -z-10 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] dark:bg-[radial-gradient(#1f2937_1px,transparent_1px)] [background-size:20px_20px] opacity-40"></div>
+
+      {/* 模糊导航条 */}
       <DockContainer autoHide={dockAutoHide} className="bottom-8">
-        <Dock>
+        <Dock className="border-slate-200/30 dark:border-slate-700/30 shadow-lg backdrop-blur-xl">
           {navItems.map((item) => (
             <DockIcon key={item.key}>
               <button
                 title={item.label}
                 aria-label={item.label}
-                className={`flex items-center justify-center size-9 rounded-full transition-colors ${
+                className={`flex items-center justify-center size-9 rounded-full transition-all duration-300 ${
                   activeSection === item.key
-                    ? "text-blue-600 dark:text-blue-400 bg-white/50 dark:bg-black/30"
-                    : "text-slate-600 hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400"
+                    ? "text-blue-600 dark:text-blue-400 bg-white/70 dark:bg-black/50 shadow-md"
+                    : "text-slate-600 hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400 hover:bg-white/40 dark:hover:bg-black/20"
                 }`}
                 onClick={() => handleItemClick(item)}
               >
@@ -68,28 +81,22 @@ export function Layout({
             </DockIcon>
           ))}
           <DockIcon>
-            <ThemeToggle />
+            <ThemeToggle className="shadow-md hover:shadow-lg transition-shadow" />
           </DockIcon>
         </Dock>
       </DockContainer>
 
-      <main className="container mx-auto px-4 py-16 pb-32">{children}</main>
+      {/* 主要内容区域 */}
+      <main className="container mx-auto px-4 py-16 pb-32">
+        <div className="bg-white/70 dark:bg-slate-900/70 backdrop-blur-md rounded-2xl shadow-xl p-6 border border-slate-200/50 dark:border-slate-700/50">
+          {children}
+        </div>
+      </main>
 
-      <footer className="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-6">
+      {/* 页脚 */}
+      <footer className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-t border-slate-200/50 dark:border-slate-800/50 py-6 shadow-inner">
         <div className="container mx-auto px-4 text-center text-slate-600 dark:text-slate-400">
           <p>© {new Date().getFullYear()} 我的个人主页. 保留所有权利.</p>
-          {externalBlogUrl && (
-            <p className="mt-2">
-              <a
-                href={externalBlogUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-600 dark:text-blue-400 hover:underline"
-              >
-                访问我的博客
-              </a>
-            </p>
-          )}
         </div>
       </footer>
     </div>
