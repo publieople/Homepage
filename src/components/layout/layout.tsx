@@ -3,6 +3,7 @@ import { cn } from "@/lib/utils";
 import { Dock, DockIcon } from "../magicui/dock";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { HomeIcon, FolderIcon, ExternalLinkIcon, MailIcon } from "lucide-react";
+import { DockContainer } from "@/components/ui/dock-container";
 
 interface LayoutProps {
   children: ReactNode;
@@ -10,6 +11,7 @@ interface LayoutProps {
   onSectionChange: (section: string) => void;
   className?: string;
   externalBlogUrl?: string;
+  dockAutoHide?: boolean;
 }
 
 export function Layout({
@@ -18,6 +20,7 @@ export function Layout({
   onSectionChange,
   className,
   externalBlogUrl,
+  dockAutoHide = true,
 }: LayoutProps) {
   const navItems = [
     { key: "home", label: "首页", icon: HomeIcon },
@@ -46,7 +49,7 @@ export function Layout({
         className
       )}
     >
-      <div className="fixed bottom-8 left-0 right-0 z-50 mx-auto flex justify-center">
+      <DockContainer autoHide={dockAutoHide} className="bottom-8">
         <Dock>
           {navItems.map((item) => (
             <DockIcon key={item.key}>
@@ -68,7 +71,7 @@ export function Layout({
             <ThemeToggle />
           </DockIcon>
         </Dock>
-      </div>
+      </DockContainer>
 
       <main className="container mx-auto px-4 py-16 pb-32">{children}</main>
 

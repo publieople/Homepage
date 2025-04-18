@@ -27,6 +27,11 @@ const Contact = lazy(() =>
 // 外部博客地址
 export const EXTERNAL_BLOG_URL = "https://blog.for-people.asia";
 
+// 应用配置
+export const APP_CONFIG = {
+  DOCK_AUTO_HIDE: true, // 是否启用 dock 栏自动隐藏功能
+};
+
 function App() {
   const [activeSection, setActiveSection] = useState("home");
   const [showSplash, setShowSplash] = useState(true);
@@ -96,6 +101,7 @@ function App() {
               activeSection={activeSection}
               onSectionChange={setActiveSection}
               externalBlogUrl={EXTERNAL_BLOG_URL}
+              dockAutoHide={APP_CONFIG.DOCK_AUTO_HIDE}
             >
               {/* 根据活动部分渲染不同内容 */}
               {activeSection === "home" && <Home className="py-10" />}
