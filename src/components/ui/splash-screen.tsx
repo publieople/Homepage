@@ -1,12 +1,10 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import {
-  Terminal,
-  AnimatedSpan,
-  TypingAnimation,
-} from "@/components/magicui/terminal";
+import { Terminal } from "@/components/magicui/terminal";
+import { TerminalCommand } from "@/components/ui/terminal-command";
 import { cn } from "@/lib/utils";
+import { PROCESSED_COMMANDS, ANIMATION_CONFIG } from "@/lib/animation-config";
 
 interface SplashScreenProps {
   onComplete?: () => void;
@@ -34,6 +32,16 @@ export function SplashScreen({
 
   // 是否可以跳过动画
   const canSkip = skipIntro || allowSkipAnytime || progressComplete;
+
+  // 创建命令替换内容
+  const replacements = {
+    name: userInfo.name,
+    title: userInfo.title,
+    description: userInfo.description,
+    skip_message: canSkip
+      ? "Press any key or click to continue..."
+      : "Initializing... Please wait...",
+  };
 
   // 渐进式载入效果
   useEffect(() => {
@@ -71,7 +79,7 @@ export function SplashScreen({
   useEffect(() => {
     const timer = setTimeout(() => {
       setProgressComplete(true);
-    }, 13000); // 调整为新的最后动画延迟时间加上一些缓冲
+    }, ANIMATION_CONFIG.TOTAL_DURATION);
 
     return () => clearTimeout(timer);
   }, []);
@@ -101,177 +109,14 @@ export function SplashScreen({
     >
       <div className="w-full h-auto max-w-4xl mt-4 sm:mt-8 md:mt-16">
         <Terminal className="font-mono text-xs sm:text-sm min-h-[50vh] sm:min-h-[60vh] max-h-[80vh] w-full border-slate-700 bg-slate-950 shadow-2xl">
-          {/* 系统启动 */}
-          <div className="flex items-start">
-            <span className="text-green-400 mr-2">[system] $</span>
-            <TypingAnimation duration={10} className="text-green-400">
-              zsh startup.sh
-            </TypingAnimation>
-          </div>
-
-          {/* 连接服务器 */}
-          <div className="flex items-start">
-            <AnimatedSpan delay={1000} className="text-blue-400 mr-2">
-              [system] $
-            </AnimatedSpan>
-            <TypingAnimation
-              delay={1500}
-              duration={10}
-              className="text-blue-400"
-            >
-              connect --server=portfolio.server --port=443
-            </TypingAnimation>
-          </div>
-
-          <AnimatedSpan delay={1800} className="text-yellow-400">
-            <span>Connecting to portfolio.server...</span>
-          </AnimatedSpan>
-
-          <AnimatedSpan delay={2000} className="text-green-500">
-            <span>Connection established. Handshake completed.</span>
-          </AnimatedSpan>
-
-          {/* 认证过程 */}
-          <div className="flex items-start">
-            <AnimatedSpan delay={2100} className="text-blue-400 mr-2">
-              [system] $
-            </AnimatedSpan>
-            <TypingAnimation
-              delay={2130}
-              duration={20}
-              className="text-blue-400"
-            >
-              auth --token=visitor_session
-            </TypingAnimation>
-          </div>
-
-          <AnimatedSpan delay={2300} className="text-green-500">
-            <span>Authentication successful. Welcome, visitor.</span>
-          </AnimatedSpan>
-
-          {/* 加载用户资料 */}
-          <div className="flex items-start">
-            <AnimatedSpan delay={4000} className="text-blue-400 mr-2">
-              [system] $
-            </AnimatedSpan>
-            <TypingAnimation
-              delay={4030}
-              duration={20}
-              className="text-blue-400"
-            >
-              load-profile --target=author
-            </TypingAnimation>
-          </div>
-
-          <AnimatedSpan delay={5000} className="text-cyan-400">
-            <span>Fetching profile data...</span>
-          </AnimatedSpan>
-
-          <AnimatedSpan delay={5100} className="text-white">
-            <span>{`{`}</span>
-          </AnimatedSpan>
-
-          <AnimatedSpan delay={5200} className="text-white pl-4">
-            <span className="text-purple-400">"name":</span>{" "}
-            <span className="text-yellow-300">"{userInfo.name}",</span>
-          </AnimatedSpan>
-
-          <AnimatedSpan delay={5300} className="text-white pl-4">
-            <span className="text-purple-400">"position":</span>{" "}
-            <span className="text-yellow-300">"{userInfo.title}",</span>
-          </AnimatedSpan>
-
-          <AnimatedSpan delay={5400} className="text-white pl-4">
-            <span className="text-purple-400">"bio":</span>{" "}
-            <span className="text-yellow-300">"{userInfo.description}"</span>
-          </AnimatedSpan>
-
-          <AnimatedSpan delay={5500} className="text-white">
-            <span>{`}`}</span>
-          </AnimatedSpan>
-
-          <AnimatedSpan delay={5700} className="text-green-400">
-            <span>Profile loaded successfully.</span>
-          </AnimatedSpan>
-
-          {/* 初始化应用 */}
-          <div className="flex items-start">
-            <AnimatedSpan delay={8000} className="text-blue-400 mr-2">
-              [system] $
-            </AnimatedSpan>
-            <TypingAnimation
-              delay={8030}
-              duration={10}
-              className="text-blue-400"
-            >
-              init-app --target=portfolio
-            </TypingAnimation>
-          </div>
-
-          <AnimatedSpan delay={8500} className="text-yellow-300">
-            <span>Initializing application...</span>
-          </AnimatedSpan>
-
-          <AnimatedSpan delay={9000} className="text-white">
-            <span>[ ] Loading components</span>
-          </AnimatedSpan>
-
-          <AnimatedSpan delay={9300} className="text-white">
-            <span>
-              [<span className="text-green-500">✓</span>] Loading components
-            </span>
-          </AnimatedSpan>
-
-          <AnimatedSpan delay={9400} className="text-white">
-            <span>[ ] Compiling styles</span>
-          </AnimatedSpan>
-
-          <AnimatedSpan delay={9700} className="text-white">
-            <span>
-              [<span className="text-green-500">✓</span>] Compiling styles
-            </span>
-          </AnimatedSpan>
-
-          <AnimatedSpan delay={9800} className="text-white">
-            <span>[ ] Initializing events</span>
-          </AnimatedSpan>
-
-          <AnimatedSpan delay={10100} className="text-white">
-            <span>
-              [<span className="text-green-500">✓</span>] Initializing events
-            </span>
-          </AnimatedSpan>
-
-          <AnimatedSpan delay={10200} className="text-green-500">
-            <span>Application initialized successfully!</span>
-          </AnimatedSpan>
-
-          {/* 最终启动 */}
-          <div className="flex items-start">
-            <AnimatedSpan delay={11200} className="text-blue-400 mr-2">
-              [system] $
-            </AnimatedSpan>
-            <TypingAnimation
-              delay={11230}
-              duration={10}
-              className="text-blue-400"
-            >
-              launch
-            </TypingAnimation>
-          </div>
-
-          <AnimatedSpan delay={12000} className="text-green-500 font-bold">
-            <span>Welcome to {userInfo.name}'s portfolio!</span>
-          </AnimatedSpan>
-
-          {/* 提示按任意键继续 */}
-          <AnimatedSpan delay={12500} className="text-gray-400 mt-2">
-            <span>
-              {canSkip
-                ? "Press any key or click to continue..."
-                : "Initializing... Please wait..."}
-            </span>
-          </AnimatedSpan>
+          {/* 渲染所有命令 */}
+          {PROCESSED_COMMANDS.map((command) => (
+            <TerminalCommand
+              key={command.id}
+              command={command}
+              replacements={replacements}
+            />
+          ))}
         </Terminal>
       </div>
     </div>
