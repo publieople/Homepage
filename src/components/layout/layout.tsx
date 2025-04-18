@@ -41,7 +41,7 @@ export function Layout({
   externalBlogUrl,
   dockAutoHide = true,
 }: LayoutProps) {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -163,9 +163,17 @@ export function Layout({
               ))}
 
               {/* 移动菜单中的语言和主题切换 */}
-              <div className="flex items-center gap-2 pt-4 border-t border-slate-200 dark:border-slate-700">
-                <LanguageToggle />
-                <ThemeToggle />
+              <div className="flex flex-col items-start gap-4 pt-4 border-t border-slate-200 dark:border-slate-700">
+                <div className="flex items-center gap-2">
+                  <LanguageToggle className="shadow-md hover:shadow-lg transition-shadow" />
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <ThemeToggle />
+                  <span className="text-sm">
+                    {language === "zh" ? "切换主题" : "Toggle Theme"}
+                  </span>
+                </div>
               </div>
             </div>
           </div>
