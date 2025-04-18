@@ -1,6 +1,7 @@
 import { useState, useEffect, Suspense, lazy } from "react";
 import "./App.css";
 import { SplashScreen } from "@/components/ui/splash-screen";
+import { DEBUG_FLAGS, getDebugFlag, initDebugTools } from "@/lib/debug-tools";
 
 // 懒加载组件
 const Layout = lazy(() =>
@@ -113,40 +114,13 @@ function App() {
   const [showSplash, setShowSplash] = useState(true);
   const [mainContentLoaded, setMainContentLoaded] = useState(false);
 
-  // 开发模式下控制是否跳过开屏动画的开关
-  // 可通过控制台执行: localStorage.setItem('skipIntro', 'true') 来启用
-  // 或执行: localStorage.setItem('skipIntro', 'false') 来禁用
-  const skipIntro = localStorage.getItem("skipIntro") === "true";
+  // 使用调试工具库获取调试标志
+  const skipIntro = getDebugFlag(DEBUG_FLAGS.SKIP_INTRO);
+  const allowSkipAnytime = getDebugFlag(DEBUG_FLAGS.ALLOW_SKIP_ANYTIME);
 
-  // 在开发环境显示调试信息
+  // 初始化调试工具
   useEffect(() => {
-    if (import.meta.env.DEV) {
-      console.log(
-        `%c开屏动画${skipIntro ? "已禁用" : "已启用"}`,
-        "background: #222; color: #bada55; padding: 2px 4px; border-radius: 2px;"
-      );
-      console.log(
-        '提示: 按下 Ctrl+Shift+S 可切换开屏动画，或在控制台执行 localStorage.setItem("skipIntro", "true/false")'
-      );
-    }
-  }, [skipIntro]);
-
-  // 添加键盘快捷键控制（仅开发模式下）
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      // 按下Ctrl+Shift+S切换skipIntro的值
-      if (e.ctrlKey && e.shiftKey && e.key === "S") {
-        const currentValue = localStorage.getItem("skipIntro") === "true";
-        localStorage.setItem("skipIntro", (!currentValue).toString());
-        console.log(`开屏动画已${!currentValue ? "禁用" : "启用"}`);
-
-        // 如果需要，可以在这里刷新页面使设置立即生效
-        // window.location.reload();
-      }
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
+    initDebugTools();
   }, []);
 
   // 禁止滚动当显示开屏动画时
@@ -182,7 +156,8 @@ function App() {
         <SplashScreen
           userInfo={userInfo}
           onComplete={handleSplashComplete}
-          skipIntro={skipIntro} // 传入跳过动画的参数
+          skipIntro={skipIntro}
+          allowSkipAnytime={allowSkipAnytime}
         />
       )}
 
