@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 interface NavItem {
   label: string;
   key: string;
+  external?: boolean;
 }
 
 interface NavbarProps {
@@ -12,6 +13,7 @@ interface NavbarProps {
   activeItem: string;
   onItemClick: (key: string) => void;
   className?: string;
+  externalBlogUrl?: string;
 }
 
 export function Navbar({
@@ -19,8 +21,25 @@ export function Navbar({
   activeItem,
   onItemClick,
   className,
+  externalBlogUrl,
 }: NavbarProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  // 处理导航项点击，对于外部链接不同处理
+  const handleItemClick = (item: NavItem) => {
+    if (item.external && item.key === "blog" && externalBlogUrl) {
+      // 如果是博客外部链接，直接打开
+      window.open(externalBlogUrl, "_blank", "noopener,noreferrer");
+    } else {
+      // 其他情况，调用传入的点击处理函数
+      onItemClick(item.key);
+    }
+
+    // 在移动设备上点击后自动关闭菜单
+    if (isMobileMenuOpen) {
+      setIsMobileMenuOpen(false);
+    }
+  };
 
   return (
     <header
@@ -43,10 +62,27 @@ export function Navbar({
                 activeItem === item.key
                   ? "text-blue-600 dark:text-blue-400"
                   : "text-slate-600 hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400"
-              }`}
-              onClick={() => onItemClick(item.key)}
+              } ${item.external ? "flex items-center gap-1" : ""}`}
+              onClick={() => handleItemClick(item)}
             >
               {item.label}
+              {item.external && (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="12"
+                  height="12"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                  <polyline points="15 3 21 3 21 9"></polyline>
+                  <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+              )}
             </button>
           ))}
         </nav>
@@ -100,13 +136,27 @@ export function Navbar({
                     activeItem === item.key
                       ? "text-blue-600 dark:text-blue-400"
                       : "text-slate-600 hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400"
-                  }`}
-                  onClick={() => {
-                    onItemClick(item.key);
-                    setIsMobileMenuOpen(false);
-                  }}
+                  } ${item.external ? "flex items-center gap-1" : ""}`}
+                  onClick={() => handleItemClick(item)}
                 >
                   {item.label}
+                  {item.external && (
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="12"
+                      height="12"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  )}
                 </button>
               ))}
             </nav>

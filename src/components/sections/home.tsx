@@ -1,4 +1,5 @@
 import { FC } from "react";
+import { EXTERNAL_BLOG_URL } from "@/App";
 
 interface HomeProps {
   className?: string;
@@ -45,12 +46,35 @@ const Home: FC<HomeProps> = ({ className }) => {
             我热爱创建美观、用户友好且高性能的Web应用。
             当我不写代码时，我喜欢阅读、旅行和学习新技术。
           </p>
-          <div className="mt-4">
+          <div className="mt-4 flex gap-3 flex-wrap">
             <a
               href="#contact"
               className="inline-block px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
             >
               联系我
+            </a>
+            <a
+              href={EXTERNAL_BLOG_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-slate-200 hover:bg-slate-300 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-800 dark:text-slate-200 rounded-lg transition-colors"
+            >
+              访问我的博客
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <line x1="10" y1="14" x2="21" y2="3"></line>
+              </svg>
             </a>
           </div>
         </div>

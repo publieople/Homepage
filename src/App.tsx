@@ -2,7 +2,7 @@ import { useState, useEffect, Suspense, lazy } from "react";
 import "./App.css";
 import { SplashScreen } from "@/components/ui/splash-screen";
 import { DEBUG_FLAGS, getDebugFlag, initDebugTools } from "@/lib/debug-tools";
-import { userInfo, projects, blogPosts } from "@/data/mock-data";
+import { userInfo, projects } from "@/data/mock-data";
 
 // 懒加载组件
 const Layout = lazy(() =>
@@ -18,14 +18,14 @@ const Projects = lazy(() =>
     default: mod.Projects,
   }))
 );
-const Blog = lazy(() =>
-  import("@/components/sections/blog").then((mod) => ({ default: mod.Blog }))
-);
 const Contact = lazy(() =>
   import("@/components/sections/contact").then((mod) => ({
     default: mod.Contact,
   }))
 );
+
+// 外部博客地址
+export const EXTERNAL_BLOG_URL = "https://blog.for-people.asia";
 
 function App() {
   const [activeSection, setActiveSection] = useState("home");
@@ -95,14 +95,12 @@ function App() {
             <Layout
               activeSection={activeSection}
               onSectionChange={setActiveSection}
+              externalBlogUrl={EXTERNAL_BLOG_URL}
             >
               {/* 根据活动部分渲染不同内容 */}
               {activeSection === "home" && <Home className="py-10" />}
               {activeSection === "projects" && (
                 <Projects className="py-10" projects={projects} />
-              )}
-              {activeSection === "blog" && (
-                <Blog className="py-10" posts={blogPosts} />
               )}
               {activeSection === "contact" && <Contact className="py-10" />}
             </Layout>

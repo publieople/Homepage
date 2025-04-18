@@ -7,6 +7,7 @@ interface LayoutProps {
   activeSection: string;
   onSectionChange: (section: string) => void;
   className?: string;
+  externalBlogUrl?: string;
 }
 
 export function Layout({
@@ -14,12 +15,14 @@ export function Layout({
   activeSection,
   onSectionChange,
   className,
+  externalBlogUrl,
 }: LayoutProps) {
   const navItems = [
     { key: "home", label: "首页" },
-    { key: "about", label: "关于" },
     { key: "projects", label: "项目" },
-    { key: "blog", label: "博客" },
+    ...(externalBlogUrl
+      ? [{ key: "blog", label: "博客", external: true }]
+      : []),
     { key: "contact", label: "联系" },
   ];
 
@@ -34,6 +37,7 @@ export function Layout({
         items={navItems}
         activeItem={activeSection}
         onItemClick={onSectionChange}
+        externalBlogUrl={externalBlogUrl}
       />
 
       <main className="container mx-auto px-4 pt-24 pb-16">{children}</main>
@@ -41,6 +45,18 @@ export function Layout({
       <footer className="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-6">
         <div className="container mx-auto px-4 text-center text-slate-600 dark:text-slate-400">
           <p>© {new Date().getFullYear()} 我的个人主页. 保留所有权利.</p>
+          {externalBlogUrl && (
+            <p className="mt-2">
+              <a
+                href={externalBlogUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 dark:text-blue-400 hover:underline"
+              >
+                访问我的博客
+              </a>
+            </p>
+          )}
         </div>
       </footer>
     </div>
