@@ -4,6 +4,7 @@ import { Dock, DockIcon } from "../magicui/dock";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { HomeIcon, FolderIcon, ExternalLinkIcon, MailIcon } from "lucide-react";
 import { DockContainer } from "@/components/ui/dock-container";
+import { Particles } from "../magicui/particles";
 
 // 定义导航项类型
 interface NavItem {
@@ -53,13 +54,27 @@ export function Layout({
   return (
     <div
       className={cn(
-        "min-h-screen bg-gradient-to-br from-blue-50 via-slate-50 to-purple-50 dark:from-slate-950 dark:via-slate-900 dark:to-blue-950",
-        "transition-colors duration-300 ease-in-out",
+        "min-h-screen bg-gradient-to-br from-blue-50/50 via-slate-50/50 to-purple-50/50 dark:from-slate-950/60 dark:via-slate-900/60 dark:to-blue-950/60",
+        "transition-colors duration-300 ease-in-out relative",
         className
       )}
     >
+      {/* 粒子背景效果 */}
+      <Particles
+        className="fixed inset-0 -z-10"
+        quantity={300}
+        staticity={30}
+        color={
+          typeof document !== "undefined" &&
+          document.documentElement.classList.contains("dark")
+            ? "#4B73FF"
+            : "#0040FF"
+        }
+        size={0.8}
+      />
+
       {/* 装饰背景元素 */}
-      <div className="fixed inset-0 -z-10 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] dark:bg-[radial-gradient(#1f2937_1px,transparent_1px)] [background-size:20px_20px] opacity-40"></div>
+      <div className="fixed inset-0 -z-20 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] dark:bg-[radial-gradient(#1f2937_1px,transparent_1px)] [background-size:20px_20px] opacity-20"></div>
 
       {/* 模糊导航条 */}
       <DockContainer autoHide={dockAutoHide} className="bottom-8">
@@ -88,13 +103,13 @@ export function Layout({
 
       {/* 主要内容区域 */}
       <main className="container mx-auto px-4 py-16 pb-32">
-        <div className="bg-white/70 dark:bg-slate-900/70 backdrop-blur-md rounded-2xl shadow-xl p-6 border border-slate-200/50 dark:border-slate-700/50">
+        <div className="bg-white/40 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-xl p-6 border border-slate-200/50 dark:border-slate-700/50">
           {children}
         </div>
       </main>
 
       {/* 页脚 */}
-      <footer className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-t border-slate-200/50 dark:border-slate-800/50 py-6 shadow-inner">
+      <footer className="bg-white/50 dark:bg-slate-900/50 backdrop-blur-md border-t border-slate-200/50 dark:border-slate-800/50 py-6 shadow-inner">
         <div className="container mx-auto px-4 text-center text-slate-600 dark:text-slate-400">
           <p>© {new Date().getFullYear()} 我的个人主页. 保留所有权利.</p>
         </div>
