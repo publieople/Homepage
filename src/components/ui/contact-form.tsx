@@ -1,6 +1,7 @@
 import { useState, FormEvent } from "react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { useLanguage } from "@/lib/language-context";
 
 interface ContactFormProps {
   className?: string;
@@ -12,6 +13,8 @@ interface ContactFormProps {
 }
 
 export function ContactForm({ className, onSubmit }: ContactFormProps) {
+  const { language } = useLanguage();
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -43,7 +46,10 @@ export function ContactForm({ className, onSubmit }: ContactFormProps) {
     if (!formData.name || !formData.email || !formData.message) {
       setSubmitStatus({
         type: "error",
-        message: "请填写所有必填字段",
+        message:
+          language === "zh"
+            ? "请填写所有必填字段"
+            : "Please fill in all required fields",
       });
       return;
     }
@@ -61,7 +67,10 @@ export function ContactForm({ className, onSubmit }: ContactFormProps) {
 
       setSubmitStatus({
         type: "success",
-        message: "表单提交成功！我会尽快回复您。",
+        message:
+          language === "zh"
+            ? "表单提交成功！我会尽快回复您。"
+            : "Form submitted successfully! I will reply to you as soon as possible.",
       });
 
       // 重置表单
@@ -73,7 +82,10 @@ export function ContactForm({ className, onSubmit }: ContactFormProps) {
     } catch (error) {
       setSubmitStatus({
         type: "error",
-        message: "提交失败，请稍后再试。",
+        message:
+          language === "zh"
+            ? "提交失败，请稍后再试。"
+            : "Submission failed, please try again later.",
       });
     } finally {
       setIsSubmitting(false);
@@ -102,7 +114,8 @@ export function ContactForm({ className, onSubmit }: ContactFormProps) {
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label htmlFor="name" className="block text-sm font-medium mb-1">
-            姓名 <span className="text-red-500">*</span>
+            {language === "zh" ? "姓名" : "Name"}{" "}
+            <span className="text-red-500">*</span>
           </label>
           <input
             type="text"
@@ -110,7 +123,9 @@ export function ContactForm({ className, onSubmit }: ContactFormProps) {
             name="name"
             value={formData.name}
             onChange={handleChange}
-            placeholder="请输入您的姓名"
+            placeholder={
+              language === "zh" ? "请输入您的姓名" : "Enter your name"
+            }
             className="w-full px-4 py-2 rounded border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700"
             required
           />
@@ -118,7 +133,8 @@ export function ContactForm({ className, onSubmit }: ContactFormProps) {
 
         <div>
           <label htmlFor="email" className="block text-sm font-medium mb-1">
-            邮箱 <span className="text-red-500">*</span>
+            {language === "zh" ? "邮箱" : "Email"}{" "}
+            <span className="text-red-500">*</span>
           </label>
           <input
             type="email"
@@ -126,7 +142,11 @@ export function ContactForm({ className, onSubmit }: ContactFormProps) {
             name="email"
             value={formData.email}
             onChange={handleChange}
-            placeholder="请输入您的邮箱地址"
+            placeholder={
+              language === "zh"
+                ? "请输入您的邮箱地址"
+                : "Enter your email address"
+            }
             className="w-full px-4 py-2 rounded border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700"
             required
           />
@@ -134,14 +154,17 @@ export function ContactForm({ className, onSubmit }: ContactFormProps) {
 
         <div>
           <label htmlFor="message" className="block text-sm font-medium mb-1">
-            留言 <span className="text-red-500">*</span>
+            {language === "zh" ? "留言" : "Message"}{" "}
+            <span className="text-red-500">*</span>
           </label>
           <textarea
             id="message"
             name="message"
             value={formData.message}
             onChange={handleChange}
-            placeholder="请输入您的留言内容"
+            placeholder={
+              language === "zh" ? "请输入您的留言内容" : "Enter your message"
+            }
             className="w-full px-4 py-2 rounded border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 min-h-32"
             required
           ></textarea>
@@ -153,7 +176,13 @@ export function ContactForm({ className, onSubmit }: ContactFormProps) {
           disabled={isSubmitting}
           className="w-full md:w-auto"
         >
-          {isSubmitting ? "提交中..." : "发送留言"}
+          {isSubmitting
+            ? language === "zh"
+              ? "提交中..."
+              : "Submitting..."
+            : language === "zh"
+            ? "发送留言"
+            : "Send Message"}
         </Button>
       </form>
     </div>

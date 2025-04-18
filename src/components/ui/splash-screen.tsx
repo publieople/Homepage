@@ -5,6 +5,7 @@ import { Terminal } from "@/components/magicui/terminal";
 import { TerminalCommand } from "@/components/ui/terminal-command";
 import { cn } from "@/lib/utils";
 import { PROCESSED_COMMANDS, ANIMATION_CONFIG } from "@/lib/animation-config";
+import { useLanguage } from "@/lib/language-context";
 
 interface SplashScreenProps {
   onComplete?: () => void;
@@ -25,6 +26,7 @@ export function SplashScreen({
   skipIntro = false,
   allowSkipAnytime = false,
 }: SplashScreenProps) {
+  const { language } = useLanguage();
   const [showSplash, setShowSplash] = useState(true);
   const [completed, setCompleted] = useState(false);
   const [fadeIn, setFadeIn] = useState(false);
@@ -39,7 +41,11 @@ export function SplashScreen({
     title: userInfo.title,
     description: userInfo.description,
     skip_message: canSkip
-      ? "Press any key or click to continue..."
+      ? language === "zh"
+        ? "按任意键或点击继续..."
+        : "Press any key or click to continue..."
+      : language === "zh"
+      ? "初始化中... 请稍候..."
       : "Initializing... Please wait...",
   };
 

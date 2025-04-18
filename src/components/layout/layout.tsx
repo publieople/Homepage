@@ -2,10 +2,12 @@ import { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import { Dock, DockIcon } from "../magicui/dock";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
+import { LanguageToggle } from "@/components/ui/language-toggle";
 import { HomeIcon, FolderIcon, ExternalLinkIcon, MailIcon } from "lucide-react";
 import { DockContainer } from "@/components/ui/dock-container";
 import { Particles } from "../magicui/particles";
 import { ShineBorder } from "../magicui/shine-border";
+import { useLanguage } from "@/lib/language-context";
 
 // 定义导航项类型
 interface NavItem {
@@ -32,13 +34,22 @@ export function Layout({
   externalBlogUrl,
   dockAutoHide = true,
 }: LayoutProps) {
+  const { t } = useLanguage();
+
   const navItems: NavItem[] = [
-    { key: "home", label: "首页", icon: HomeIcon },
-    { key: "projects", label: "项目", icon: FolderIcon },
+    { key: "home", label: t.navigation.home, icon: HomeIcon },
+    { key: "projects", label: t.navigation.projects, icon: FolderIcon },
     ...(externalBlogUrl
-      ? [{ key: "blog", label: "博客", external: true, icon: ExternalLinkIcon }]
+      ? [
+          {
+            key: "blog",
+            label: t.navigation.blog,
+            external: true,
+            icon: ExternalLinkIcon,
+          },
+        ]
       : []),
-    { key: "contact", label: "联系", icon: MailIcon },
+    { key: "contact", label: t.navigation.contact, icon: MailIcon },
   ];
 
   // 处理导航项点击，对于外部链接不同处理
@@ -117,6 +128,9 @@ export function Layout({
             </DockIcon>
           ))}
           <DockIcon>
+            <LanguageToggle className="shadow-md hover:shadow-lg transition-shadow" />
+          </DockIcon>
+          <DockIcon>
             <ThemeToggle className="shadow-md hover:shadow-lg transition-shadow" />
           </DockIcon>
         </Dock>
@@ -126,7 +140,10 @@ export function Layout({
       <div className="absolute bottom-0 left-0 right-0 z-10 pointer-events-none">
         <div className="container mx-auto px-4 text-center text-slate-600 dark:text-slate-400 pb-20">
           <p className="pointer-events-auto">
-            © {new Date().getFullYear()} 我的个人主页. 保留所有权利.
+            {t.footer.copyright.replace(
+              "{year}",
+              new Date().getFullYear().toString()
+            )}
           </p>
         </div>
       </div>

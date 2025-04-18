@@ -1,4 +1,5 @@
 import { FC, lazy, Suspense } from "react";
+import { useLanguage } from "@/lib/language-context";
 
 // 懒加载项目卡片组件
 const ProjectCard = lazy(() =>
@@ -23,19 +24,25 @@ interface ProjectsProps {
 }
 
 const Projects: FC<ProjectsProps> = ({ className, projects }) => {
+  const { t, language } = useLanguage();
+
   return (
     <section className={className}>
       <div className="max-w-4xl mx-auto text-center mb-12">
-        <h2 className="text-4xl font-bold mb-4">我的项目</h2>
+        <h2 className="text-4xl font-bold mb-4">{t.projects.title}</h2>
         <p className="text-xl text-slate-600 dark:text-slate-300">
-          这些是我最近完成的一些项目。每个项目都展示了我的技能和专业知识。
+          {language === "zh"
+            ? "这些是我最近完成的一些项目。每个项目都展示了我的技能和专业知识。"
+            : "These are some of my recent projects. Each project showcases my skills and expertise."}
         </p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         <Suspense
           fallback={
-            <div className="col-span-full text-center py-12">加载项目...</div>
+            <div className="col-span-full text-center py-12">
+              {language === "zh" ? "加载项目..." : "Loading projects..."}
+            </div>
           }
         >
           {projects.map((project) => (

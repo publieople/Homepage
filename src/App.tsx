@@ -3,6 +3,8 @@ import "./App.css";
 import { SplashScreen } from "@/components/ui/splash-screen";
 import { DEBUG_FLAGS, getDebugFlag, initDebugTools } from "@/lib/debug-tools";
 import { userInfo, projects } from "@/data/mock-data";
+import { LanguageProvider } from "@/lib/language-context";
+import { useLanguage } from "@/lib/language-context";
 
 // 懒加载组件
 const Layout = lazy(() =>
@@ -32,10 +34,12 @@ export const APP_CONFIG = {
   DOCK_AUTO_HIDE: true, // 是否启用 dock 栏自动隐藏功能
 };
 
-function App() {
+// 应用内容组件，包含在LanguageProvider内部
+function AppContent() {
   const [activeSection, setActiveSection] = useState("home");
   const [showSplash, setShowSplash] = useState(true);
   const [mainContentLoaded, setMainContentLoaded] = useState(false);
+  const { t } = useLanguage();
 
   // 使用调试工具库获取调试标志
   const skipIntro = getDebugFlag(DEBUG_FLAGS.SKIP_INTRO);
@@ -88,7 +92,7 @@ function App() {
         <Suspense
           fallback={
             <div className="fixed inset-0 bg-slate-950 flex items-center justify-center text-white">
-              加载中...
+              {t.common.loading}
             </div>
           }
         >
@@ -114,6 +118,14 @@ function App() {
         </Suspense>
       )}
     </>
+  );
+}
+
+function App() {
+  return (
+    <LanguageProvider>
+      <AppContent />
+    </LanguageProvider>
   );
 }
 
