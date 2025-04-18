@@ -5,6 +5,7 @@ import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { HomeIcon, FolderIcon, ExternalLinkIcon, MailIcon } from "lucide-react";
 import { DockContainer } from "@/components/ui/dock-container";
 import { Particles } from "../magicui/particles";
+import { ShineBorder } from "../magicui/shine-border";
 
 // 定义导航项类型
 interface NavItem {
@@ -54,8 +55,7 @@ export function Layout({
   return (
     <div
       className={cn(
-        "min-h-screen bg-gradient-to-br from-blue-50/50 via-slate-50/50 to-purple-50/50 dark:from-slate-950/60 dark:via-slate-900/60 dark:to-blue-950/60",
-        "transition-colors duration-300 ease-in-out relative",
+        "min-h-screen flex flex-col relative overflow-hidden",
         className
       )}
     >
@@ -73,11 +73,32 @@ export function Layout({
         size={0.8}
       />
 
+      {/* 渐变背景 */}
+      <div className="fixed inset-0 -z-20 bg-gradient-to-br from-blue-50/50 via-slate-50/50 to-purple-50/50 dark:from-slate-950/60 dark:via-slate-900/60 dark:to-blue-950/60"></div>
+
       {/* 装饰背景元素 */}
-      <div className="fixed inset-0 -z-20 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] dark:bg-[radial-gradient(#1f2937_1px,transparent_1px)] [background-size:20px_20px] opacity-20"></div>
+      <div className="fixed inset-0 -z-30 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] dark:bg-[radial-gradient(#1f2937_1px,transparent_1px)] [background-size:20px_20px] opacity-20"></div>
+
+      {/* 主要内容区域 - 占满全屏 */}
+      <div className="flex-1 flex flex-col relative z-10 m-4 sm:m-8 md:m-12">
+        <div className="relative flex-1 bg-white/40 dark:bg-slate-900/40 backdrop-blur-md rounded-3xl shadow-xl border border-slate-200/50 dark:border-slate-700/50 overflow-hidden">
+          <ShineBorder
+            borderWidth={3}
+            duration={8}
+            shineColor={[
+              "rgba(56, 189, 248, 0.4)", // 浅蓝色
+              "rgba(232, 121, 249, 0.4)", // 粉紫色
+              "rgba(59, 130, 246, 0.4)", // 蓝色
+            ]}
+            className="rounded-3xl"
+          />
+
+          <main className="p-6 md:p-8 overflow-auto h-full">{children}</main>
+        </div>
+      </div>
 
       {/* 模糊导航条 */}
-      <DockContainer autoHide={dockAutoHide} className="bottom-8">
+      <DockContainer autoHide={dockAutoHide} className="bottom-8 z-20">
         <Dock className="border-slate-200/30 dark:border-slate-700/30 shadow-lg backdrop-blur-xl">
           {navItems.map((item) => (
             <DockIcon key={item.key}>
@@ -101,19 +122,14 @@ export function Layout({
         </Dock>
       </DockContainer>
 
-      {/* 主要内容区域 */}
-      <main className="container mx-auto px-4 py-16 pb-32">
-        <div className="bg-white/40 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-xl p-6 border border-slate-200/50 dark:border-slate-700/50">
-          {children}
+      {/* 页脚 - 移至固定位置在底部，但在内容框内 */}
+      <div className="absolute bottom-0 left-0 right-0 z-10 pointer-events-none">
+        <div className="container mx-auto px-4 text-center text-slate-600 dark:text-slate-400 pb-20">
+          <p className="pointer-events-auto">
+            © {new Date().getFullYear()} 我的个人主页. 保留所有权利.
+          </p>
         </div>
-      </main>
-
-      {/* 页脚 */}
-      <footer className="bg-white/50 dark:bg-slate-900/50 backdrop-blur-md border-t border-slate-200/50 dark:border-slate-800/50 py-6 shadow-inner">
-        <div className="container mx-auto px-4 text-center text-slate-600 dark:text-slate-400">
-          <p>© {new Date().getFullYear()} 我的个人主页. 保留所有权利.</p>
-        </div>
-      </footer>
+      </div>
     </div>
   );
 }
