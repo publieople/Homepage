@@ -14,6 +14,7 @@ import { Particles } from "../magicui/particles";
 import { ShineBorder } from "../magicui/shine-border";
 import { useLanguage } from "@/lib/language-context";
 import { Separator } from "@/components/ui/Separator";
+import "@/components/ui/dock-styles.css";
 
 // 定义导航项类型
 interface NavItem {
@@ -216,9 +217,9 @@ export function Layout({
                 <button
                   title={item.label}
                   aria-label={item.label}
-                  className={`flex items-center justify-center size-9 aspect-square rounded-full transition-all duration-300 ${
+                  className={`flex items-center justify-center size-9 aspect-square rounded-full transition-all duration-300 dock-icon-hover ${
                     activeSection === item.key
-                      ? "text-primary-foreground bg-primary shadow-md"
+                      ? "text-primary-foreground bg-primary dock-icon-active"
                       : "text-foreground/80 hover:text-primary dark:text-foreground/80 dark:hover:text-primary hover:bg-muted dark:hover:bg-muted"
                   }`}
                   onClick={() => handleItemClick(item)}
@@ -227,12 +228,12 @@ export function Layout({
                 </button>
               </DockIcon>
             ))}
-            <Separator orientation="vertical" className="h-full" />
+            <Separator orientation="vertical" className="dock-separator" />
             <DockIcon>
-              <LanguageToggle className="aspect-square shadow-md hover:shadow-lg transition-shadow" />
+              <LanguageToggle className="aspect-square dock-icon-hover shadow-md hover:shadow-lg transition-shadow" />
             </DockIcon>
             <DockIcon>
-              <ThemeToggle className="aspect-square shadow-md hover:shadow-lg transition-shadow" />
+              <ThemeToggle className="aspect-square dock-icon-hover shadow-md hover:shadow-lg transition-shadow" />
             </DockIcon>
           </Dock>
         </DockContainer>

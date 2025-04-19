@@ -27,7 +27,7 @@
 
 button:hover,
 .button:hover {
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.24);
   transform: translateY(-1px);
 }
 

@@ -1,0 +1,30 @@
+/* Dock相关组件的样式 */
+
+/* 暗色模式下DockIcon的悬停效果 */
+.dark .dock-icon-hover:hover {
+    box-shadow: 0 0 8px 2px rgba(255, 255, 255, 0.2);
+    transform: translateY(-1px);
+}
+
+/* 暗色模式下的选中按钮样式 */
+.dark .dock-icon-active {
+    box-shadow: 0 0 10px 3px rgba(255, 255, 255, 0.25);
+}
+
+/* 亮色模式下的悬停效果 */
+.dock-icon-hover:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    transform: translateY(-1px);
+}
+
+/* 亮色模式下的选中按钮样式 */
+.dock-icon-active {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+}
+
+/* 分隔线样式 */
+.dock-separator {
+    height: 60%;
+    align-self: center;
+    opacity: 0.5;
+}
