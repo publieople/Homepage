@@ -26,5 +26,12 @@
 .dock-separator {
     height: 60%;
     align-self: center;
-    opacity: 0.5;
+    opacity: 0.8;
+    width: 1.5px;
+    background-color: rgba(150, 150, 150, 0.5);
+}
+
+/* 暗色模式下的分隔线样式 */
+.dark .dock-separator {
+    background-color: rgba(200, 200, 200, 0.6);
 }
