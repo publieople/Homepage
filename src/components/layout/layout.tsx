@@ -113,37 +113,37 @@ export function Layout({
         color={
           typeof document !== "undefined" &&
           document.documentElement.classList.contains("dark")
-            ? "#4B73FF"
-            : "#0040FF"
+            ? "#aaaaaa"
+            : "#333333"
         }
         size={0.8}
       />
 
       {/* 渐变背景 */}
-      <div className="fixed inset-0 -z-20 bg-gradient-to-br from-blue-50/50 via-slate-50/50 to-purple-50/50 dark:from-slate-950/60 dark:via-slate-900/60 dark:to-blue-950/60"></div>
+      <div className="fixed inset-0 -z-20 bg-gradient-to-br from-[#fafafa]/50 via-[#f5f5f5]/50 to-[#f0f0f0]/50 dark:from-[#121212]/60 dark:via-[#161616]/60 dark:to-[#1a1a1a]/60"></div>
 
       {/* 装饰背景元素 */}
-      <div className="fixed inset-0 -z-30 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] dark:bg-[radial-gradient(#1f2937_1px,transparent_1px)] [background-size:20px_20px] opacity-20"></div>
+      <div className="fixed inset-0 -z-30 bg-[radial-gradient(#e0e0e0_1px,transparent_1px)] dark:bg-[radial-gradient(#2a2a2a_1px,transparent_1px)] [background-size:20px_20px] opacity-20"></div>
 
       {/* 移动设备菜单按钮 */}
       {isMobile && (
         <button
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          className="fixed top-4 right-4 z-50 p-2 bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm rounded-lg shadow-md"
+          className="fixed top-4 right-4 z-50 p-2 bg-background/70 dark:bg-card/70 backdrop-blur-sm rounded-lg shadow-md"
           aria-label={isMobileMenuOpen ? "关闭菜单" : "打开菜单"}
         >
           {isMobileMenuOpen ? (
-            <XIcon className="w-6 h-6 text-slate-700 dark:text-slate-200" />
+            <XIcon className="w-6 h-6 text-foreground" />
           ) : (
-            <MenuIcon className="w-6 h-6 text-slate-700 dark:text-slate-200" />
+            <MenuIcon className="w-6 h-6 text-foreground" />
           )}
         </button>
       )}
 
       {/* 移动设备导航菜单 */}
       {isMobile && isMobileMenuOpen && (
-        <div className="fixed inset-0 z-40 bg-slate-900/50 backdrop-blur-sm flex justify-end items-start">
-          <div className="w-64 h-full bg-white dark:bg-slate-800 p-6 shadow-xl animate-in slide-in-from-right">
+        <div className="fixed inset-0 z-40 bg-background/50 dark:bg-card/50 backdrop-blur-sm flex justify-end items-start">
+          <div className="w-64 h-full bg-card text-card-foreground p-6 shadow-xl animate-in slide-in-from-right">
             <div className="space-y-6 pt-10">
               {navItems.map((item) => (
                 <button
@@ -151,8 +151,8 @@ export function Layout({
                   onClick={() => handleItemClick(item)}
                   className={`flex items-center gap-2 w-full p-2 rounded-lg transition-colors ${
                     activeSection === item.key
-                      ? "bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400"
-                      : "hover:bg-slate-100 dark:hover:bg-slate-700/50"
+                      ? "bg-accent dark:bg-accent text-accent-foreground dark:text-accent-foreground"
+                      : "hover:bg-muted dark:hover:bg-muted hover:text-muted-foreground dark:hover:text-muted-foreground"
                   }`}
                 >
                   <item.icon className="w-5 h-5" />
@@ -161,7 +161,7 @@ export function Layout({
               ))}
 
               {/* 移动菜单中的语言和主题切换 */}
-              <div className="flex flex-col items-start gap-4 pt-4 border-t border-slate-200 dark:border-slate-700">
+              <div className="flex flex-col items-start gap-4 pt-4 border-t border-border">
                 <div className="flex items-center gap-2">
                   <LanguageToggle className="shadow-md hover:shadow-lg transition-shadow" />
                 </div>
@@ -180,14 +180,14 @@ export function Layout({
 
       {/* 主要内容区域 - 调整移动端边距 */}
       <div className="flex-1 flex flex-col relative z-10 m-2 sm:m-4 md:m-8 lg:m-12">
-        <div className="relative flex-1 bg-white/40 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl sm:rounded-3xl shadow-xl border border-slate-200/50 dark:border-slate-700/50 overflow-hidden">
+        <div className="relative flex-1 bg-background/40 dark:bg-card/40 backdrop-blur-md rounded-2xl sm:rounded-3xl shadow-xl border border-border/50 overflow-hidden">
           <ShineBorder
             borderWidth={3}
             duration={8}
             shineColor={[
-              "rgba(56, 189, 248, 0.4)", // 浅蓝色
-              "rgba(232, 121, 249, 0.4)", // 粉紫色
-              "rgba(59, 130, 246, 0.4)", // 蓝色
+              "rgba(150, 150, 150, 0.4)", // 浅灰色
+              "rgba(100, 100, 100, 0.4)", // 中灰色
+              "rgba(50, 50, 50, 0.4)", // 深灰色
             ]}
             className="rounded-2xl sm:rounded-3xl"
           />
@@ -204,7 +204,7 @@ export function Layout({
           autoHide={dockAutoHide}
           className="bottom-4 sm:bottom-8 z-20"
         >
-          <Dock className="border-slate-200/30 dark:border-slate-700/30 shadow-lg backdrop-blur-xl">
+          <Dock className="border-border/30 shadow-lg backdrop-blur-xl">
             {navItems.map((item) => (
               <DockIcon key={item.key}>
                 <button
@@ -212,8 +212,8 @@ export function Layout({
                   aria-label={item.label}
                   className={`flex items-center justify-center size-9 rounded-full transition-all duration-300 ${
                     activeSection === item.key
-                      ? "text-blue-600 dark:text-blue-400 bg-white/70 dark:bg-black/50 shadow-md"
-                      : "text-slate-600 hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400 hover:bg-white/40 dark:hover:bg-black/20"
+                      ? "text-primary-foreground bg-primary shadow-md"
+                      : "text-foreground/80 hover:text-primary dark:text-foreground/80 dark:hover:text-primary hover:bg-muted dark:hover:bg-muted"
                   }`}
                   onClick={() => handleItemClick(item)}
                 >
@@ -233,7 +233,7 @@ export function Layout({
 
       {/* 页脚 - 调整底部间距，适应移动设备 */}
       <div className="absolute bottom-0 left-0 right-0 z-10 pointer-events-none">
-        <div className="container mx-auto px-4 text-center text-slate-600 dark:text-slate-400 pb-16 sm:pb-20">
+        <div className="container mx-auto px-4 text-center text-muted-foreground pb-16 sm:pb-20">
           <p className="pointer-events-auto text-xs sm:text-sm">
             {t.footer.copyright.replace(
               "{year}",

@@ -100,7 +100,7 @@ export function ContactForm({
   return (
     <div
       className={cn(
-        "bg-white dark:bg-slate-800 rounded-lg shadow p-4 sm:p-6",
+        "bg-card text-card-foreground rounded-lg shadow p-4 sm:p-6",
         className
       )}
     >
@@ -134,7 +134,7 @@ export function ContactForm({
             placeholder={
               language === "zh" ? "请输入您的姓名" : "Enter your name"
             }
-            className="w-full px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm rounded border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700"
+            className="w-full px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm rounded border border-border bg-input dark:bg-input text-foreground"
             required
           />
         </div>
@@ -158,7 +158,7 @@ export function ContactForm({
                 ? "请输入您的邮箱地址"
                 : "Enter your email address"
             }
-            className="w-full px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm rounded border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700"
+            className="w-full px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm rounded border border-border bg-input dark:bg-input text-foreground"
             required
           />
         </div>
@@ -179,7 +179,7 @@ export function ContactForm({
             placeholder={
               language === "zh" ? "请输入您的留言内容" : "Enter your message"
             }
-            className="w-full px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm rounded border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 min-h-24 sm:min-h-32"
+            className="w-full px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm rounded border border-border bg-input dark:bg-input text-foreground min-h-24 sm:min-h-32"
             required
           ></textarea>
         </div>

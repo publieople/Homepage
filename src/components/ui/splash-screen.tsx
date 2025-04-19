@@ -106,7 +106,7 @@ export function SplashScreen({
   return (
     <div
       className={cn(
-        "fixed inset-0 z-50 flex items-start justify-center bg-slate-950 transition-opacity duration-700 p-2 sm:p-4 md:p-6",
+        "fixed inset-0 z-50 flex items-start justify-center bg-background transition-opacity duration-700 p-2 sm:p-4 md:p-6",
         fadeIn ? "opacity-100" : "opacity-0",
         { "opacity-0": completed },
         className
@@ -114,7 +114,7 @@ export function SplashScreen({
       onClick={() => canSkip && setCompleted(true)}
     >
       <div className="w-full h-auto max-w-4xl mt-4 sm:mt-8 md:mt-16">
-        <Terminal className="font-mono text-xs sm:text-sm min-h-[50vh] sm:min-h-[60vh] max-h-[80vh] w-full border-slate-700 bg-slate-950 shadow-2xl">
+        <Terminal className="font-mono text-xs sm:text-sm min-h-[50vh] sm:min-h-[60vh] max-h-[80vh] w-full border-muted bg-card text-card-foreground shadow-2xl">
           {/* 渲染所有命令 */}
           {PROCESSED_COMMANDS.map((command) => (
             <TerminalCommand

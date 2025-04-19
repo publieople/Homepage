@@ -5,23 +5,95 @@
   text-align: center;
 }
 
+/* 精致的过渡效果 */
+* {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* 高级感卡片效果 */
+.card {
+  padding: 2em;
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.card:hover {
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+  transform: translateY(-1px);
+}
+
+
+button:hover,
+.button:hover {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.12);
+  transform: translateY(-1px);
+}
+
+/* 微妙的文本样式 */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+p {
+  line-height: 1.6;
+}
+
+/* 高级感输入框 */
+input,
+textarea,
+select {
+  background-color: var(--input);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.6em;
+  width: 100%;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: 2px solid var(--ring);
+  outline-offset: 1px;
+}
+
+/* 精致的分割线 */
+hr {
+  border: none;
+  height: 1px;
+  background-color: var(--border);
+  margin: 2rem 0;
+}
+
+/* Logo动画调整为更加细腻 */
 .logo {
   height: 6em;
   padding: 1.5em;
   will-change: filter;
-  transition: filter 300ms;
+  transition: filter 300ms ease;
 }
+
 .logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+  filter: drop-shadow(0 0 0.8em var(--secondary));
 }
+
 .logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+  filter: drop-shadow(0 0 0.8em var(--primary));
 }
 
 @keyframes logo-spin {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -33,10 +105,8 @@
   }
 }
 
-.card {
-  padding: 2em;
-}
-
 .read-the-docs {
-  color: #888;
+  color: var(--muted-foreground);
+  font-size: 0.9em;
+  letter-spacing: 0.01em;
 }

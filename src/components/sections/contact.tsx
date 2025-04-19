@@ -38,7 +38,7 @@ const Contact: FC<ContactProps> = ({ className }) => {
         >
           {t.contact.title}
         </h2>
-        <p className="text-sm sm:text-base md:text-xl text-slate-600 dark:text-slate-300 px-2 sm:px-0">
+        <p className="text-sm sm:text-base md:text-xl text-foreground/80 px-2 sm:px-0">
           {language === "zh"
             ? "如果您有项目想法或合作机会，请随时与我联系。"
             : "If you have a project idea or opportunity for collaboration, feel free to contact me."}

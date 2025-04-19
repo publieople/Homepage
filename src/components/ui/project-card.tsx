@@ -36,7 +36,7 @@ export function ProjectCard({
       >
         {title}
       </h3>
-      <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mb-3 sm:mb-4">
+      <p className="text-xs sm:text-sm text-foreground/70 dark:text-foreground/80 mb-3 sm:mb-4">
         {description}
       </p>
 
@@ -45,7 +45,7 @@ export function ProjectCard({
           {tags.map((tag, i) => (
             <span
               key={i}
-              className="text-[10px] sm:text-xs px-1.5 sm:px-2 py-0.5 sm:py-1 rounded bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300"
+              className="text-[10px] sm:text-xs px-1.5 sm:px-2 py-0.5 sm:py-1 rounded bg-muted dark:bg-accent text-muted-foreground dark:text-accent-foreground"
             >
               {tag}
             </span>
@@ -58,7 +58,7 @@ export function ProjectCard({
   return (
     <div
       className={cn(
-        "bg-white dark:bg-slate-800 rounded-lg shadow p-3 sm:p-6 flex flex-col h-full transition-transform hover:translate-y-[-4px]",
+        "bg-card text-card-foreground rounded-lg shadow p-3 sm:p-6 flex flex-col h-full transition-transform hover:translate-y-[-4px]",
         className
       )}
     >

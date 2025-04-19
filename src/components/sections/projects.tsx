@@ -49,7 +49,7 @@ const Projects: FC<ProjectsProps> = ({ className, projects }) => {
         >
           {t.projects.title}
         </h2>
-        <p className="text-sm sm:text-base md:text-xl text-slate-600 dark:text-slate-300 px-1 sm:px-0">
+        <p className="text-sm sm:text-base md:text-xl text-foreground/80 px-1 sm:px-0">
           {language === "zh"
             ? "这些是我最近完成的一些项目。每个项目都展示了我的技能和专业知识。"
             : "These are some of my recent projects. Each project showcases my skills and expertise."}
