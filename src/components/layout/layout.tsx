@@ -204,13 +204,18 @@ export function Layout({
           autoHide={dockAutoHide}
           className="bottom-4 sm:bottom-8 z-20"
         >
-          <Dock className="border-border/30 shadow-lg backdrop-blur-xl">
+          <Dock
+            direction="middle"
+            iconMagnification={60}
+            iconDistance={100}
+            className="border-border/30 shadow-lg backdrop-blur-xl"
+          >
             {navItems.map((item) => (
               <DockIcon key={item.key}>
                 <button
                   title={item.label}
                   aria-label={item.label}
-                  className={`flex items-center justify-center size-9 rounded-full transition-all duration-300 ${
+                  className={`flex items-center justify-center size-9 aspect-square rounded-full transition-all duration-300 ${
                     activeSection === item.key
                       ? "text-primary-foreground bg-primary shadow-md"
                       : "text-foreground/80 hover:text-primary dark:text-foreground/80 dark:hover:text-primary hover:bg-muted dark:hover:bg-muted"
