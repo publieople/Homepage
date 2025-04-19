@@ -13,6 +13,7 @@ import { DockContainer } from "@/components/ui/dock-container";
 import { Particles } from "../magicui/particles";
 import { ShineBorder } from "../magicui/shine-border";
 import { useLanguage } from "@/lib/language-context";
+import { Separator } from "@/components/ui/Separator";
 
 // 定义导航项类型
 interface NavItem {
@@ -226,11 +227,12 @@ export function Layout({
                 </button>
               </DockIcon>
             ))}
+            <Separator orientation="vertical" className="h-full" />
             <DockIcon>
-              <LanguageToggle className="shadow-md hover:shadow-lg transition-shadow" />
+              <LanguageToggle className="aspect-square shadow-md hover:shadow-lg transition-shadow" />
             </DockIcon>
             <DockIcon>
-              <ThemeToggle className="shadow-md hover:shadow-lg transition-shadow" />
+              <ThemeToggle className="aspect-square shadow-md hover:shadow-lg transition-shadow" />
             </DockIcon>
           </Dock>
         </DockContainer>
