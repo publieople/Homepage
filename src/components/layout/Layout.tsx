@@ -12,7 +12,7 @@ export function Layout({ children, className }: LayoutProps) {
   return (
     <div className="relative min-h-screen w-full bg-black">
       {/* 粒子背景 */}
-      <div className="fixed inset-0 -z-10">
+      <div className="fixed inset-0 z-0">
         <Particles
           className="absolute inset-0"
           quantity={300}
@@ -22,7 +22,7 @@ export function Layout({ children, className }: LayoutProps) {
       </div>
 
       {/* 内容容器 */}
-      <div className="mx-auto flex min-h-screen w-full flex-col">
+      <div className="relative z-10 mx-auto flex min-h-screen w-full flex-col">
         {/* 主要内容区域 */}
         <main className={cn("flex-1 px-4 py-12", className)}>
           <div className="mx-auto w-full max-w-7xl">{children}</div>
