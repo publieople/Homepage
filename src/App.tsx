@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { Layout, PageTransition } from "@/components/layout";
-import { Home } from "@/pages/Home";
-import { About } from "@/pages/About";
+import { Home } from "@/pages/home/Home";
+import { About } from "@/pages/about/About";
 
 // 页面导入（稍后会实现）
 const ProjectsPage = () => (

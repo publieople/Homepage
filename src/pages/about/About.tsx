@@ -2,15 +2,15 @@ import { PageTemplate } from "@/components/layout";
 
 export function About() {
   return (
-    <PageTemplate title="关于我们" subtitle="了解我们的团队、理念和使命">
+    <PageTemplate title="关于我" subtitle="了解我的能力、理念和价值">
       <div className="space-y-8">
         <section className="rounded-lg border border-zinc-800 bg-zinc-900/50 p-6 backdrop-blur-sm">
           <h2 className="mb-4 text-2xl font-semibold text-zinc-200">
-            我们的理念
+            我的理念
           </h2>
           <p className="text-zinc-400">
             极简设计不仅仅是视觉上的简洁，更是对用户体验的深度思考。
-            我们相信，真正优秀的设计应该是无形的，让用户专注于内容本身。
+            我相信，真正优秀的设计应该是无形的，让用户专注于内容本身。
           </p>
         </section>
 
