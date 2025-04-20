@@ -17,9 +17,9 @@
 
 ### 项目搭建
 
-- [ ] **P0** 使用Vite创建新项目
-  - [ ] 配置TypeScript支持
-  - [ ] 配置ESLint和Prettier
+- [X] **P0** 使用Vite创建新项目
+  - [X] 配置TypeScript支持
+  - [X] 配置ESLint和Prettier
   - [ ] 设置路径别名
 - [ ] **P0** 配置Yarn依赖管理
   - [ ] 创建.yarnrc.yml配置文件
