@@ -31,7 +31,7 @@ export const EXTERNAL_BLOG_URL = "https://blog.for-people.asia";
 
 // 应用配置
 export const APP_CONFIG = {
-  DOCK_AUTO_HIDE: true, // 是否启用 dock 栏自动隐藏功能
+  // 如果有其他配置项可以保留
 };
 
 // 应用内容组件，包含在LanguageProvider内部
@@ -105,7 +105,6 @@ function AppContent() {
               activeSection={activeSection}
               onSectionChange={setActiveSection}
               externalBlogUrl={EXTERNAL_BLOG_URL}
-              dockAutoHide={APP_CONFIG.DOCK_AUTO_HIDE}
             >
               {/* 根据活动部分渲染不同内容 */}
               {activeSection === "home" && <Home className="py-10" />}

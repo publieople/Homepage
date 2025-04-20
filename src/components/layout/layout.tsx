@@ -13,7 +13,7 @@ import { DockContainer } from "@/components/ui/dock-container";
 import { Particles } from "../magicui/particles";
 import { ShineBorder } from "../magicui/shine-border";
 import { useLanguage } from "@/lib/language-context";
-import { Separator } from "@/components/ui/Separator";
+import { Separator } from "@/components/ui/separator";
 import "@/components/ui/dock-styles.css";
 
 // 定义导航项类型
@@ -30,7 +30,6 @@ interface LayoutProps {
   onSectionChange: (section: string) => void;
   className?: string;
   externalBlogUrl?: string;
-  dockAutoHide?: boolean;
 }
 
 export function Layout({
@@ -39,7 +38,6 @@ export function Layout({
   onSectionChange,
   className,
   externalBlogUrl,
-  dockAutoHide = true,
 }: LayoutProps) {
   const { t, language } = useLanguage();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -202,10 +200,7 @@ export function Layout({
 
       {/* 桌面端底部导航栏 */}
       {!isMobile && (
-        <DockContainer
-          autoHide={dockAutoHide}
-          className="bottom-4 sm:bottom-8 z-20"
-        >
+        <DockContainer className="bottom-4 sm:bottom-8 z-20">
           <Dock
             direction="middle"
             iconMagnification={60}
