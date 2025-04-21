@@ -30,8 +30,21 @@ export function Layout({ children, className }: LayoutProps) {
     return () => window.removeEventListener("resize", updateParticleCount);
   }, []);
 
+  // 设置背景色为黑色（固定暗色模式）
+  useEffect(() => {
+    const body = document.body;
+    body.style.backgroundColor = "#222";
+
+    // 确保应用暗色模式类
+    document.documentElement.classList.add("dark");
+
+    return () => {
+      body.style.backgroundColor = "";
+    };
+  }, []);
+
   return (
-    <div className="relative min-h-screen w-full bg-black">
+    <div className="relative min-h-screen w-full bg-background">
       {/* 粒子背景 */}
       <div className="fixed inset-0 z-0">
         <Particles
@@ -40,6 +53,7 @@ export function Layout({ children, className }: LayoutProps) {
           staticity={50}
           ease={30}
           size={window.innerWidth < 768 ? 0.2 : 0.4}
+          color="#eee"
         />
       </div>
 

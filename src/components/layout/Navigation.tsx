@@ -7,13 +7,10 @@ import {
   Mail,
   Menu,
   X,
-  Sun,
-  Moon,
 } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
-import { useDarkMode } from "@/hooks/useDarkMode";
 import { LucideIcon } from "lucide-react";
 
 type NavItem = {
@@ -34,7 +31,6 @@ export function Navigation() {
   const navigate = useNavigate();
   const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { isDarkMode, toggleDarkMode } = useDarkMode();
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
@@ -52,14 +48,6 @@ export function Navigation() {
         <div className="flex items-center justify-between p-4 border-b border-zinc-800">
           <h2 className="text-lg font-semibold text-zinc-200">导航菜单</h2>
           <div className="flex items-center gap-4">
-            {/* 移动端暗色模式切换按钮 */}
-            <button
-              onClick={toggleDarkMode}
-              className="p-2 text-zinc-400 hover:text-zinc-200 transition-colors"
-              title={isDarkMode ? "切换到亮色模式" : "切换到暗色模式"}
-            >
-              {isDarkMode ? <Sun size={24} /> : <Moon size={24} />}
-            </button>
             <button
               onClick={toggleMenu}
               className="p-2 text-zinc-400 hover:text-zinc-200"
@@ -120,18 +108,6 @@ export function Navigation() {
             </DockIcon>
           );
         })}
-        {/* 暗色模式切换按钮 */}
-        <DockIcon
-          onClick={toggleDarkMode}
-          className="bg-zinc-800/50 hover:bg-zinc-700/60 transition-colors"
-          title={isDarkMode ? "切换到亮色模式" : "切换到暗色模式"}
-        >
-          {isDarkMode ? (
-            <Sun className="text-zinc-300" />
-          ) : (
-            <Moon className="text-zinc-300" />
-          )}
-        </DockIcon>
       </Dock>
 
       {/* 移动端汉堡菜单按钮 */}

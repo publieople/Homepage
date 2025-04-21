@@ -10,7 +10,7 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: #ffffff;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -64,7 +64,16 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
-  background-color: #242424;
+  transition: background-color 0.3s ease;
+}
+
+.dark body {
+  background-color: #000000;
+}
+
+body:not(.dark) {
+  background-color: #ffffff;
+  color: #213547;
 }
 
 h1 {
@@ -184,6 +193,7 @@ button:focus-visible {
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
