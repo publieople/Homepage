@@ -3,3 +3,4 @@ export * from "./Container";
 export * from "./Navigation";
 export * from "./PageTransition";
 export * from "./PageTemplate";
+export * from "./TerminalPageTransition";

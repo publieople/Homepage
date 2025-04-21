@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
-import { Layout, PageTransition } from "@/components/layout";
+import { Layout, TerminalPageTransition } from "@/components/layout";
 import { Home } from "@/pages/home/Home";
 import { About } from "@/pages/about/About";
 
@@ -19,7 +19,7 @@ function AppRoutes() {
 
   return (
     <Layout>
-      <PageTransition location={location.pathname}>
+      <TerminalPageTransition location={location.pathname}>
         <Routes location={location}>
           <Route path="/" element={<Home />} />
           <Route path="/projects" element={<ProjectsPage />} />
@@ -27,7 +27,7 @@ function AppRoutes() {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<ContactPage />} />
         </Routes>
-      </PageTransition>
+      </TerminalPageTransition>
     </Layout>
   );
 }
