@@ -3,16 +3,12 @@ import { Layout, TerminalPageTransition } from "@/components/layout";
 import { Home } from "@/pages/home/Home";
 import { About } from "@/pages/about/About";
 
-// 页面导入（稍后会实现）
 const ProjectsPage = () => (
   <div className="text-center text-4xl font-bold">作品集</div>
 );
 
-// 移除原有博客页面组件，替换为重定向组件
 const BlogRedirect = () => {
-  // 使用 window.location 直接导航到外部网站
   window.location.href = "https://blog.for-people.asia";
-  // 返回 null 或加载指示器
   return <div className="text-center text-xl">正在跳转到博客...</div>;
 };
 
