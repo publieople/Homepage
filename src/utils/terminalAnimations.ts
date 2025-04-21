@@ -38,8 +38,8 @@ export function calculateTerminalAnimation(
   // 默认选项
   const opts = {
     initialDelay: 100,
-    typingSpeed: 20, // 毫秒/字符
-    stepDelay: 150, // 步骤间延迟
+    typingSpeed: 2, // 毫秒/字符
+    stepDelay: 100, // 步骤间延迟
     messageDisplayTime: 200, // 消息显示的基础停留时间
     ...options,
   };
@@ -146,7 +146,7 @@ export function createRoutingTerminalAnimation(
       typingSpeed: 15,
     },
     {
-      type: "typing",
+      type: "message",
       content: `✓ Local: http://localhost:4173${path}`,
       className: "text-zinc-300",
       typingSpeed: 12,
@@ -156,8 +156,8 @@ export function createRoutingTerminalAnimation(
   // 设置更快的动画时序以提高用户体验
   return calculateTerminalAnimation(steps, {
     initialDelay: 100,
-    typingSpeed: 15, // 加快打字速度
-    stepDelay: 120, // 缩短步骤间延迟
+    typingSpeed: 2, // 加快打字速度
+    stepDelay: 100, // 缩短步骤间延迟
     messageDisplayTime: 150, // 缩短消息显示时间
   });
 }
