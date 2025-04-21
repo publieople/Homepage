@@ -5,7 +5,7 @@ export function About() {
   return (
     <PageTemplate title="关于我" subtitle="了解我的能力、理念和价值">
       <div className="space-y-4 sm:space-y-6 lg:space-y-8 px-4 sm:px-0">
-        <MagicCard className="">
+        <MagicCard className="rounded-lg">
           <section className="p-4 sm:p-6">
             <h2 className="mb-3 sm:mb-4 text-xl sm:text-2xl font-semibold text-zinc-200">
               我的理念
@@ -17,7 +17,7 @@ export function About() {
           </section>
         </MagicCard>
 
-        <MagicCard className="overflow-hidden">
+        <MagicCard className="overflow-hidden rounded-lg">
           <section className="p-4 sm:p-6">
             <h2 className="mb-3 sm:mb-4 text-xl sm:text-2xl font-semibold text-zinc-200">
               核心价值

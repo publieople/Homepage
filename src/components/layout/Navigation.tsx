@@ -1,11 +1,23 @@
 import { Dock, DockIcon } from "@/components/magicui/dock";
-import { HomeIcon, LayoutTemplate, BookOpen, User, Mail, Menu, X } from "lucide-react";
+import {
+  HomeIcon,
+  LayoutTemplate,
+  BookOpen,
+  User,
+  Mail,
+  Menu,
+  X,
+  Sun,
+  Moon,
+} from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
+import { useDarkMode } from "@/hooks/useDarkMode";
+import { LucideIcon } from "lucide-react";
 
 type NavItem = {
-  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+  icon: LucideIcon;
   path: string;
   label: string;
 };
@@ -22,6 +34,7 @@ export function Navigation() {
   const navigate = useNavigate();
   const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { isDarkMode, toggleDarkMode } = useDarkMode();
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
@@ -38,13 +51,23 @@ export function Navigation() {
       <div className="fixed inset-x-0 bottom-0 z-50 bg-zinc-900/95 border-t border-zinc-800 backdrop-blur-md">
         <div className="flex items-center justify-between p-4 border-b border-zinc-800">
           <h2 className="text-lg font-semibold text-zinc-200">导航菜单</h2>
-          <button
-            onClick={toggleMenu}
-            className="p-2 text-zinc-400 hover:text-zinc-200"
-            title="关闭菜单"
-          >
-            <X size={24} />
-          </button>
+          <div className="flex items-center gap-4">
+            {/* 移动端暗色模式切换按钮 */}
+            <button
+              onClick={toggleDarkMode}
+              className="p-2 text-zinc-400 hover:text-zinc-200 transition-colors"
+              title={isDarkMode ? "切换到亮色模式" : "切换到暗色模式"}
+            >
+              {isDarkMode ? <Sun size={24} /> : <Moon size={24} />}
+            </button>
+            <button
+              onClick={toggleMenu}
+              className="p-2 text-zinc-400 hover:text-zinc-200"
+              title="关闭菜单"
+            >
+              <X size={24} />
+            </button>
+          </div>
         </div>
         <nav className="p-4">
           <ul className="space-y-2">
@@ -59,7 +82,9 @@ export function Navigation() {
                     }}
                     className={cn(
                       "flex w-full items-center space-x-3 rounded-lg px-4 py-3 text-zinc-400 transition-colors",
-                      isActive ? "bg-zinc-800/60 text-white" : "hover:bg-zinc-800/40 hover:text-zinc-200"
+                      isActive
+                        ? "bg-zinc-800/60 text-white"
+                        : "hover:bg-zinc-800/40 hover:text-zinc-200"
                     )}
                   >
                     <item.icon size={20} />
@@ -95,6 +120,18 @@ export function Navigation() {
             </DockIcon>
           );
         })}
+        {/* 暗色模式切换按钮 */}
+        <DockIcon
+          onClick={toggleDarkMode}
+          className="bg-zinc-800/50 hover:bg-zinc-700/60 transition-colors"
+          title={isDarkMode ? "切换到亮色模式" : "切换到暗色模式"}
+        >
+          {isDarkMode ? (
+            <Sun className="text-zinc-300" />
+          ) : (
+            <Moon className="text-zinc-300" />
+          )}
+        </DockIcon>
       </Dock>
 
       {/* 移动端汉堡菜单按钮 */}
