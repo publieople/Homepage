@@ -7,9 +7,15 @@ import { About } from "@/pages/about/About";
 const ProjectsPage = () => (
   <div className="text-center text-4xl font-bold">作品集</div>
 );
-const BlogPage = () => (
-  <div className="text-center text-4xl font-bold">博客</div>
-);
+
+// 移除原有博客页面组件，替换为重定向组件
+const BlogRedirect = () => {
+  // 使用 window.location 直接导航到外部网站
+  window.location.href = "https://blog.for-people.asia";
+  // 返回 null 或加载指示器
+  return <div className="text-center text-xl">正在跳转到博客...</div>;
+};
+
 const ContactPage = () => (
   <div className="text-center text-4xl font-bold">联系</div>
 );
@@ -23,7 +29,7 @@ function AppRoutes() {
         <Routes location={location}>
           <Route path="/" element={<Home />} />
           <Route path="/projects" element={<ProjectsPage />} />
-          <Route path="/blog" element={<BlogPage />} />
+          <Route path="/blog" element={<BlogRedirect />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<ContactPage />} />
         </Routes>

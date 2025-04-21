@@ -1,9 +1,9 @@
 import { Dock, DockIcon } from "@/components/magicui/dock";
 import {
   HomeIcon,
-  LayoutTemplate,
-  BookOpen,
-  User,
+  SquareChartGantt,
+  Rss,
+  CircleUserRound,
   Mail,
   Menu,
   X,
@@ -20,13 +20,21 @@ type NavItem = {
   icon: LucideIcon;
   path: string;
   labelKey: string;
+  external?: boolean;
+  externalUrl?: string;
 };
 
 const navItems: NavItem[] = [
   { icon: HomeIcon, path: "/", labelKey: "nav.home" },
-  { icon: LayoutTemplate, path: "/projects", labelKey: "nav.projects" },
-  { icon: BookOpen, path: "/blog", labelKey: "nav.blog" },
-  { icon: User, path: "/about", labelKey: "nav.about" },
+  { icon: SquareChartGantt, path: "/projects", labelKey: "nav.projects" },
+  {
+    icon: Rss,
+    path: "/blog",
+    labelKey: "nav.blog",
+    external: true,
+    externalUrl: "https://blog.for-people.asia",
+  },
+  { icon: CircleUserRound, path: "/about", labelKey: "nav.about" },
   { icon: Mail, path: "/contact", labelKey: "nav.contact" },
 ];
 
@@ -38,6 +46,21 @@ export function Navigation() {
   const { toggleLanguage, language } = useLanguage();
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+
+  // 处理导航点击
+  const handleNavigation = (item: NavItem) => {
+    if (item.external && item.externalUrl) {
+      // 对于外部链接，直接在新窗口打开
+      window.open(item.externalUrl, "_blank");
+    } else {
+      // 对于内部链接，使用路由导航
+      navigate(item.path);
+    }
+    // 如果菜单是打开的，关闭菜单
+    if (isMenuOpen) {
+      setIsMenuOpen(false);
+    }
+  };
 
   // 移动端菜单
   const MobileMenu = () => (
@@ -79,10 +102,7 @@ export function Navigation() {
               return (
                 <li key={item.path}>
                   <button
-                    onClick={() => {
-                      navigate(item.path);
-                      setIsMenuOpen(false);
-                    }}
+                    onClick={() => handleNavigation(item)}
                     className={cn(
                       "flex w-full items-center space-x-3 rounded-lg px-4 py-3 text-zinc-400 transition-colors",
                       isActive
@@ -111,7 +131,7 @@ export function Navigation() {
           return (
             <DockIcon
               key={item.path}
-              onClick={() => navigate(item.path)}
+              onClick={() => handleNavigation(item)}
               className={cn(
                 "bg-zinc-800/50 hover:bg-zinc-700/60 transition-colors",
                 isActive && "bg-zinc-700/70 text-white"
