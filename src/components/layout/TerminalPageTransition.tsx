@@ -1,10 +1,14 @@
 import { motion, AnimatePresence } from "motion/react";
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useEffect, useState, useCallback, useMemo } from "react";
 import {
   Terminal,
   TypingAnimation,
   AnimatedSpan,
 } from "@/components/magicui/terminal";
+import {
+  createRoutingTerminalAnimation,
+  AnimationStep,
+} from "@/utils/terminalAnimations";
 
 interface TerminalPageTransitionProps {
   children: ReactNode;
@@ -21,15 +25,7 @@ export function TerminalPageTransition({
   const [showContent, setShowContent] = useState(false);
   const [currentPath, setCurrentPath] = useState(location);
   const [loadingProgress, setLoadingProgress] = useState(0);
-
-  // 页面路径映射到终端命令和文件名
-  const pathToCommand: Record<string, { cmd: string; file: string }> = {
-    "/": { cmd: "cd ~/home", file: "index.jsx" },
-    "/about": { cmd: "cd ~/about", file: "about.jsx" },
-    "/projects": { cmd: "cd ~/projects", file: "projects.jsx" },
-    "/blog": { cmd: "cd ~/blog", file: "blog.jsx" },
-    "/contact": { cmd: "cd ~/contact", file: "contact.jsx" },
-  };
+  const [animationSteps, setAnimationSteps] = useState<AnimationStep[]>([]);
 
   // 模拟加载进度
   useEffect(() => {
@@ -46,6 +42,35 @@ export function TerminalPageTransition({
     }
   }, [showTerminal, loadingProgress]);
 
+  // 计算动画总时长
+  const calculateTotalAnimationDuration = useCallback(
+    (steps: AnimationStep[]) => {
+      if (!steps.length) return 0;
+
+      // 找到最后一个步骤
+      const lastStep = steps[steps.length - 1];
+
+      // 最后一步的延迟 + 持续时间(如果有) + 额外300ms缓冲
+      return lastStep.delay + (lastStep.duration || 500) + 300;
+    },
+    []
+  );
+
+  // 生成动画步骤并计算总时长
+  const { steps, totalDuration } = useMemo(() => {
+    const newSteps = createRoutingTerminalAnimation(
+      currentPath,
+      () => loadingProgress
+    );
+    const duration = calculateTotalAnimationDuration(newSteps);
+    return { steps: newSteps, totalDuration: duration };
+  }, [currentPath, loadingProgress, calculateTotalAnimationDuration]);
+
+  // 更新动画步骤
+  useEffect(() => {
+    setAnimationSteps(steps);
+  }, [steps]);
+
   // 处理页面切换
   useEffect(() => {
     // 当路径变化时
@@ -57,13 +82,14 @@ export function TerminalPageTransition({
       const timer1 = setTimeout(() => {
         setShowTerminal(true);
         setCurrentPath(location);
-      }, 300);
+      }, 100);
 
       // 终端动画结束后隐藏终端，显示页面内容
+      // 使用计算出的动画总时长
       const timer2 = setTimeout(() => {
         setShowTerminal(false);
         setShowContent(true);
-      }, 3000);
+      }, totalDuration);
 
       return () => {
         clearTimeout(timer1);
@@ -74,17 +100,41 @@ export function TerminalPageTransition({
       const timer = setTimeout(() => {
         setShowTerminal(false);
         setShowContent(true);
-      }, 3000);
+      }, totalDuration);
 
       return () => clearTimeout(timer);
     }
-  }, [location, currentPath, showContent]);
+  }, [location, currentPath, showContent, totalDuration]);
 
-  // 获取当前路径的命令和文件
-  const currentCommand = pathToCommand[currentPath]?.cmd || `cd ${currentPath}`;
-  const currentFile =
-    pathToCommand[currentPath]?.file ||
-    `${currentPath.slice(1) || "index"}.jsx`;
+  // 渲染动画步骤
+  const renderAnimationStep = (step: AnimationStep, index: number) => {
+    if (step.type === "typing") {
+      return (
+        <TypingAnimation
+          key={`typing-${index}`}
+          delay={step.delay}
+          className={step.className}
+          duration={
+            step.duration
+              ? Math.max(20, step.duration / step.content.length)
+              : undefined
+          }
+        >
+          {step.content}
+        </TypingAnimation>
+      );
+    } else {
+      return (
+        <AnimatedSpan
+          key={`message-${index}`}
+          delay={step.delay}
+          className={step.className}
+        >
+          <span>{step.content}</span>
+        </AnimatedSpan>
+      );
+    }
+  };
 
   return (
     <div className={className}>
@@ -99,42 +149,9 @@ export function TerminalPageTransition({
             className="fixed inset-0 z-50 flex items-center justify-center bg-zinc-900/90 backdrop-blur-sm"
           >
             <Terminal className="w-[90%] max-w-2xl">
-              <TypingAnimation>{`> ${currentCommand}`}</TypingAnimation>
-
-              <AnimatedSpan delay={600} className="text-zinc-400">
-                <span>~/projects/{currentFile}</span>
-              </AnimatedSpan>
-
-              <AnimatedSpan delay={1000} className="text-green-500">
-                <span>$ npm run build</span>
-              </AnimatedSpan>
-
-              <AnimatedSpan delay={1400} className="text-blue-500">
-                <span>
-                  Building component tree...{" "}
-                  {loadingProgress >= 30 ? "Done" : ""}
-                </span>
-              </AnimatedSpan>
-
-              <AnimatedSpan delay={1800} className="text-blue-500">
-                <span>
-                  Loading assets... {loadingProgress >= 60 ? "Done" : ""}
-                </span>
-              </AnimatedSpan>
-
-              <AnimatedSpan delay={2200} className="text-blue-500">
-                <span>
-                  Hydrating DOM... {loadingProgress >= 90 ? "Done" : ""}
-                </span>
-              </AnimatedSpan>
-
-              <AnimatedSpan delay={2600} className="text-green-500">
-                <span>$ npm run start -- --port 3000</span>
-              </AnimatedSpan>
-
-              <TypingAnimation delay={2800} className="text-zinc-300">
-                {`Ready on http://localhost:3000${currentPath}`}
-              </TypingAnimation>
+              {animationSteps.map((step, index) =>
+                renderAnimationStep(step, index)
+              )}
             </Terminal>
           </motion.div>
         )}
