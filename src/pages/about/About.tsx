@@ -1,14 +1,17 @@
 import { PageTemplate } from "@/components/layout";
 import { MagicCard } from "@/components/magicui/magic-card";
+import { useTranslation } from "react-i18next";
 
 export function About() {
+  const { t } = useTranslation();
+
   return (
-    <PageTemplate title="关于我" subtitle="了解我的能力、理念和价值">
+    <PageTemplate title={t("about.title")} subtitle={t("about.intro")}>
       <div className="space-y-4 sm:space-y-6 lg:space-y-8 px-4 sm:px-0">
         <MagicCard className="rounded-lg">
           <section className="p-4 sm:p-6">
             <h2 className="mb-3 sm:mb-4 text-xl sm:text-2xl font-semibold text-zinc-200">
-              我的理念
+              {t("about.skills")}
             </h2>
             <p className="text-sm sm:text-base text-zinc-400 leading-relaxed">
               极简设计不仅仅是视觉上的简洁，更是对用户体验的深度思考。
@@ -20,7 +23,7 @@ export function About() {
         <MagicCard className="overflow-hidden rounded-lg">
           <section className="p-4 sm:p-6">
             <h2 className="mb-3 sm:mb-4 text-xl sm:text-2xl font-semibold text-zinc-200">
-              核心价值
+              {t("about.experience")}
             </h2>
             <ul className="list-inside list-disc space-y-2 text-sm sm:text-base text-zinc-400">
               <li>以用户为中心的设计思维</li>

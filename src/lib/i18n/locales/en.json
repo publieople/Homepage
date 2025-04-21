@@ -1,0 +1,51 @@
+{
+    "common": {
+        "loading": "Loading...",
+        "error": "An error occurred",
+        "notFound": "Page not found"
+    },
+    "nav": {
+        "home": "Home",
+        "projects": "Projects",
+        "blog": "Blog",
+        "about": "About",
+        "contact": "Contact"
+    },
+    "home": {
+        "title": "Simple Yet Powerful",
+        "subtitle": "Minimalist design, efficient development, creating impressive digital experiences",
+        "projects": {
+            "title": "Project Showcase",
+            "description": "This is a short project description. Click for more details."
+        }
+    },
+    "about": {
+        "title": "About Me",
+        "intro": "I'm a developer focused on creating high-quality, high-performance websites.",
+        "skills": "Skills",
+        "experience": "Experience",
+        "education": "Education"
+    },
+    "contact": {
+        "title": "Contact Me",
+        "name": "Name",
+        "email": "Email",
+        "message": "Message",
+        "send": "Send",
+        "success": "Sent successfully",
+        "error": "Failed to send"
+    },
+    "footer": {
+        "copyright": "All rights reserved"
+    },
+    "buttons": {
+        "viewAll": "View All",
+        "readMore": "Read More",
+        "back": "Back",
+        "submit": "Submit"
+    },
+    "language": {
+        "zh": "Chinese",
+        "en": "English"
+    }
+}

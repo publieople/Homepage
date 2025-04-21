@@ -1,0 +1,51 @@
+{
+    "common": {
+        "loading": "加载中...",
+        "error": "出错了",
+        "notFound": "页面不存在"
+    },
+    "nav": {
+        "home": "首页",
+        "projects": "作品",
+        "blog": "博客",
+        "about": "关于",
+        "contact": "联系"
+    },
+    "home": {
+        "title": "简约而不简单",
+        "subtitle": "极简设计，高效开发，创造令人印象深刻的数字体验",
+        "projects": {
+            "title": "项目展示",
+            "description": "这里是项目简短描述内容，点击查看更多详情。"
+        }
+    },
+    "about": {
+        "title": "关于我",
+        "intro": "我是一名专注于创建高质量、高性能网站的开发者。",
+        "skills": "技能",
+        "experience": "经验",
+        "education": "教育"
+    },
+    "contact": {
+        "title": "联系我",
+        "name": "姓名",
+        "email": "邮箱",
+        "message": "留言",
+        "send": "发送",
+        "success": "发送成功",
+        "error": "发送失败"
+    },
+    "footer": {
+        "copyright": "版权所有"
+    },
+    "buttons": {
+        "viewAll": "查看全部",
+        "readMore": "阅读更多",
+        "back": "返回",
+        "submit": "提交"
+    },
+    "language": {
+        "zh": "中文",
+        "en": "英文"
+    }
+}

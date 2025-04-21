@@ -7,30 +7,35 @@ import {
   Mail,
   Menu,
   X,
+  Languages,
 } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 import { LucideIcon } from "lucide-react";
+import { useTranslation } from "react-i18next";
+import { useLanguage } from "@/hooks/useLanguage";
 
 type NavItem = {
   icon: LucideIcon;
   path: string;
-  label: string;
+  labelKey: string;
 };
 
 const navItems: NavItem[] = [
-  { icon: HomeIcon, path: "/", label: "首页" },
-  { icon: LayoutTemplate, path: "/projects", label: "作品" },
-  { icon: BookOpen, path: "/blog", label: "博客" },
-  { icon: User, path: "/about", label: "关于" },
-  { icon: Mail, path: "/contact", label: "联系" },
+  { icon: HomeIcon, path: "/", labelKey: "nav.home" },
+  { icon: LayoutTemplate, path: "/projects", labelKey: "nav.projects" },
+  { icon: BookOpen, path: "/blog", labelKey: "nav.blog" },
+  { icon: User, path: "/about", labelKey: "nav.about" },
+  { icon: Mail, path: "/contact", labelKey: "nav.contact" },
 ];
 
 export function Navigation() {
   const navigate = useNavigate();
   const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { t } = useTranslation();
+  const { toggleLanguage, language } = useLanguage();
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
@@ -48,6 +53,16 @@ export function Navigation() {
         <div className="flex items-center justify-between p-4 border-b border-zinc-800">
           <h2 className="text-lg font-semibold text-zinc-200">导航菜单</h2>
           <div className="flex items-center gap-4">
+            {/* 移动端语言切换器 */}
+            <button
+              onClick={toggleLanguage}
+              className="flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-md bg-zinc-800/50 text-zinc-300 hover:bg-zinc-700/70 hover:text-zinc-200"
+              title={language === "zh" ? t("language.en") : t("language.zh")}
+            >
+              <Languages size={16} />
+              <span>{language === "zh" ? "EN" : "中"}</span>
+            </button>
+
             <button
               onClick={toggleMenu}
               className="p-2 text-zinc-400 hover:text-zinc-200"
@@ -76,7 +91,7 @@ export function Navigation() {
                     )}
                   >
                     <item.icon size={20} />
-                    <span>{item.label}</span>
+                    <span>{t(item.labelKey)}</span>
                   </button>
                 </li>
               );
@@ -101,6 +116,7 @@ export function Navigation() {
                 "bg-zinc-800/50 hover:bg-zinc-700/60 transition-colors",
                 isActive && "bg-zinc-700/70 text-white"
               )}
+              title={t(item.labelKey)}
             >
               <item.icon
                 className={cn("text-zinc-300", isActive && "text-white")}
@@ -108,6 +124,15 @@ export function Navigation() {
             </DockIcon>
           );
         })}
+
+        {/* 桌面端语言切换按钮 */}
+        <DockIcon
+          onClick={toggleLanguage}
+          className="bg-zinc-800/50 hover:bg-zinc-700/60 transition-colors"
+          title={language === "zh" ? t("language.en") : t("language.zh")}
+        >
+          <Languages className="text-zinc-300" />
+        </DockIcon>
       </Dock>
 
       {/* 移动端汉堡菜单按钮 */}
