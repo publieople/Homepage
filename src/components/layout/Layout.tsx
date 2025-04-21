@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { Particles } from "@/components/magicui/particles";
 import { Navigation } from "./Navigation";
 import { cn } from "@/lib/utils";
@@ -9,27 +9,49 @@ interface LayoutProps {
 }
 
 export function Layout({ children, className }: LayoutProps) {
+  // 根据设备性能和屏幕尺寸调整粒子数量
+  const [particleCount, setParticleCount] = useState(300);
+
+  useEffect(() => {
+    const updateParticleCount = () => {
+      const width = window.innerWidth;
+      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+      const isLowPerfDevice = navigator.hardwareConcurrency <= 4;
+
+      if (isMobile || isLowPerfDevice) {
+        setParticleCount(Math.min(100, Math.floor(width / 10)));
+      } else {
+        setParticleCount(Math.min(300, Math.floor(width / 6)));
+      }
+    };
+
+    updateParticleCount();
+    window.addEventListener("resize", updateParticleCount);
+    return () => window.removeEventListener("resize", updateParticleCount);
+  }, []);
+
   return (
     <div className="relative min-h-screen w-full bg-black">
       {/* 粒子背景 */}
       <div className="fixed inset-0 z-0">
         <Particles
           className="absolute inset-0"
-          quantity={300}
+          quantity={particleCount}
           staticity={50}
           ease={30}
+          size={window.innerWidth < 768 ? 0.2 : 0.4}
         />
       </div>
 
       {/* 内容容器 */}
       <div className="relative z-10 mx-auto flex min-h-screen w-full flex-col">
         {/* 主要内容区域 */}
-        <main className={cn("flex-1 px-4 py-12", className)}>
+        <main className={cn("flex-1 px-4 py-6 sm:py-8 lg:py-12", className)}>
           <div className="mx-auto w-full max-w-7xl">{children}</div>
         </main>
 
         {/* 底部导航栏 */}
-        <footer className="sticky bottom-6 flex justify-center py-4">
+        <footer className="sticky bottom-4 sm:bottom-6 flex justify-center py-2 sm:py-4">
           <Navigation />
         </footer>
       </div>

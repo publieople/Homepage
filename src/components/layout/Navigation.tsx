@@ -1,7 +1,8 @@
 import { Dock, DockIcon } from "@/components/magicui/dock";
-import { HomeIcon, LayoutTemplate, BookOpen, User, Mail } from "lucide-react";
+import { HomeIcon, LayoutTemplate, BookOpen, User, Mail, Menu, X } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
+import { useState } from "react";
 
 type NavItem = {
   icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
@@ -20,26 +21,93 @@ const navItems: NavItem[] = [
 export function Navigation() {
   const navigate = useNavigate();
   const location = useLocation();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+
+  // 移动端菜单
+  const MobileMenu = () => (
+    <>
+      {/* 背景遮罩 */}
+      <div
+        className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm transition-opacity"
+        onClick={() => setIsMenuOpen(false)}
+      />
+
+      {/* 菜单面板 */}
+      <div className="fixed inset-x-0 bottom-0 z-50 bg-zinc-900/95 border-t border-zinc-800 backdrop-blur-md">
+        <div className="flex items-center justify-between p-4 border-b border-zinc-800">
+          <h2 className="text-lg font-semibold text-zinc-200">导航菜单</h2>
+          <button
+            onClick={toggleMenu}
+            className="p-2 text-zinc-400 hover:text-zinc-200"
+            title="关闭菜单"
+          >
+            <X size={24} />
+          </button>
+        </div>
+        <nav className="p-4">
+          <ul className="space-y-2">
+            {navItems.map((item) => {
+              const isActive = location.pathname === item.path;
+              return (
+                <li key={item.path}>
+                  <button
+                    onClick={() => {
+                      navigate(item.path);
+                      setIsMenuOpen(false);
+                    }}
+                    className={cn(
+                      "flex w-full items-center space-x-3 rounded-lg px-4 py-3 text-zinc-400 transition-colors",
+                      isActive ? "bg-zinc-800/60 text-white" : "hover:bg-zinc-800/40 hover:text-zinc-200"
+                    )}
+                  >
+                    <item.icon size={20} />
+                    <span>{item.label}</span>
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
+        </nav>
+      </div>
+    </>
+  );
 
   return (
-    <Dock className="bg-zinc-900/80 border-zinc-800 backdrop-blur-sm">
-      {navItems.map((item) => {
-        const isActive = location.pathname === item.path;
-        return (
-          <DockIcon
-            key={item.path}
-            onClick={() => navigate(item.path)}
-            className={cn(
-              "bg-zinc-800/50 hover:bg-zinc-700/60 transition-colors",
-              isActive && "bg-zinc-700/70 text-white"
-            )}
-          >
-            <item.icon
-              className={cn("text-zinc-300", isActive && "text-white")}
-            />
-          </DockIcon>
-        );
-      })}
-    </Dock>
+    <>
+      {/* 桌面端导航 */}
+      <Dock className="hidden bg-zinc-900/80 border-zinc-800 backdrop-blur-sm lg:flex">
+        {navItems.map((item) => {
+          const isActive = location.pathname === item.path;
+          return (
+            <DockIcon
+              key={item.path}
+              onClick={() => navigate(item.path)}
+              className={cn(
+                "bg-zinc-800/50 hover:bg-zinc-700/60 transition-colors",
+                isActive && "bg-zinc-700/70 text-white"
+              )}
+            >
+              <item.icon
+                className={cn("text-zinc-300", isActive && "text-white")}
+              />
+            </DockIcon>
+          );
+        })}
+      </Dock>
+
+      {/* 移动端汉堡菜单按钮 */}
+      <button
+        onClick={toggleMenu}
+        className="flex lg:hidden items-center justify-center w-12 h-12 rounded-full bg-zinc-900/80 border border-zinc-800 backdrop-blur-sm text-zinc-400 hover:text-zinc-200 transition-colors z-50"
+        title="打开菜单"
+      >
+        <Menu size={32} />
+      </button>
+
+      {/* 仅在菜单打开时渲染移动端菜单 */}
+      {isMenuOpen && <MobileMenu />}
+    </>
   );
 }
