@@ -10,10 +10,10 @@ export function About() {
       <div className="space-y-4 sm:space-y-6 lg:space-y-8 px-4 sm:px-0">
         <MagicCard className="rounded-lg">
           <section className="p-4 sm:p-6">
-            <h2 className="mb-3 sm:mb-4 text-xl sm:text-2xl font-semibold text-zinc-200">
+            <h2 className="mb-3 sm:mb-4 text-xl sm:text-2xl font-semibold text-foreground transition-colors">
               {t("about.skills")}
             </h2>
-            <p className="text-sm sm:text-base text-zinc-400 leading-relaxed">
+            <p className="text-sm sm:text-base text-foreground/70 leading-relaxed transition-colors">
               极简设计不仅仅是视觉上的简洁，更是对用户体验的深度思考。
               我相信，真正优秀的设计应该是无形的，让用户专注于内容本身。
             </p>
@@ -22,10 +22,10 @@ export function About() {
 
         <MagicCard className="overflow-hidden rounded-lg">
           <section className="p-4 sm:p-6">
-            <h2 className="mb-3 sm:mb-4 text-xl sm:text-2xl font-semibold text-zinc-200">
+            <h2 className="mb-3 sm:mb-4 text-xl sm:text-2xl font-semibold text-foreground transition-colors">
               {t("about.experience")}
             </h2>
-            <ul className="list-inside list-disc space-y-2 text-sm sm:text-base text-zinc-400">
+            <ul className="list-inside list-disc space-y-2 text-sm sm:text-base text-foreground/70 transition-colors">
               <li>以用户为中心的设计思维</li>
               <li>不断探索技术与创意的边界</li>
               <li>追求卓越与完美的工匠精神</li>

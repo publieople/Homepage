@@ -2,6 +2,7 @@ import { ReactNode, useEffect, useState } from "react";
 import { Particles } from "@/components/magicui/particles";
 import { Navigation } from "./Navigation";
 import { cn } from "@/lib/utils";
+import { useTheme } from "@/hooks/useTheme";
 
 interface LayoutProps {
   children: ReactNode;
@@ -11,6 +12,18 @@ interface LayoutProps {
 export function Layout({ children, className }: LayoutProps) {
   // 根据设备性能和屏幕尺寸调整粒子数量
   const [particleCount, setParticleCount] = useState(300);
+  const { isDark } = useTheme();
+
+  // 根据主题设置粒子颜色
+  const particleColor = isDark ? "#eeeeee" : "#333333";
+
+  // 添加一个刷新触发器来强制Particles组件重新渲染
+  const [refreshParticles, setRefreshParticles] = useState(false);
+
+  // 监听主题变化，触发粒子刷新
+  useEffect(() => {
+    setRefreshParticles((prev) => !prev);
+  }, [isDark]);
 
   useEffect(() => {
     const updateParticleCount = () => {
@@ -31,7 +44,7 @@ export function Layout({ children, className }: LayoutProps) {
   }, []);
 
   return (
-    <div className="relative min-h-screen w-full bg-background">
+    <div className="relative min-h-screen w-full bg-background transition-colors">
       {/* 粒子背景 */}
       <div className="fixed inset-0 z-0">
         <Particles
@@ -40,7 +53,8 @@ export function Layout({ children, className }: LayoutProps) {
           staticity={50}
           ease={30}
           size={window.innerWidth < 768 ? 0.2 : 0.4}
-          color="#eee"
+          color={particleColor} // 使用基于主题的颜色
+          refresh={refreshParticles} // 添加refresh参数使粒子重新生成
         />
       </div>
 

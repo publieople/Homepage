@@ -23,12 +23,12 @@ export function PageTemplate({
         {(title || subtitle) && (
           <header className="mb-8 sm:mb-10 lg:mb-12 text-center">
             {title && (
-              <h1 className="bg-gradient-to-r from-zinc-200 to-zinc-400 bg-clip-text text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-transparent">
+              <h1 className="bg-gradient-to-r from-foreground/90 to-foreground/60 bg-clip-text text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-transparent transition-colors">
                 {title}
               </h1>
             )}
             {subtitle && (
-              <p className="mt-3 sm:mt-4 text-base sm:text-lg text-zinc-400 max-w-[42rem] mx-auto">
+              <p className="mt-3 sm:mt-4 text-base sm:text-lg text-foreground/70 max-w-[42rem] mx-auto transition-colors">
                 {subtitle}
               </p>
             )}
