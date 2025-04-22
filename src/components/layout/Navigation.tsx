@@ -145,6 +145,9 @@ export function Navigation() {
           );
         })}
 
+        {/* 分隔线 */}
+        <div className="h-8 w-px bg-zinc-700/50 mx-1 self-center"></div>
+
         {/* 桌面端语言切换按钮 */}
         <DockIcon
           onClick={toggleLanguage}
