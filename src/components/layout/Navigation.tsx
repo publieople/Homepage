@@ -8,6 +8,7 @@ import {
   Menu,
   X,
   Languages,
+  SunMoon,
 } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
@@ -15,6 +16,7 @@ import { useState } from "react";
 import { LucideIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useLanguage } from "@/hooks/useLanguage";
+import { useTheme } from "@/hooks/useTheme";
 
 type NavItem = {
   icon: LucideIcon;
@@ -44,8 +46,19 @@ export function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { t } = useTranslation();
   const { toggleLanguage, language } = useLanguage();
+  const { toggleTheme } = useTheme();
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+
+  // 处理桌面端主题切换
+  const handleDesktopThemeToggle = (event: React.MouseEvent) => {
+    toggleTheme(event);
+  };
+
+  // 处理移动端主题切换
+  const handleMobileThemeToggle = (event: React.MouseEvent) => {
+    toggleTheme(event);
+  };
 
   // 处理导航点击
   const handleNavigation = (item: NavItem) => {
@@ -86,6 +99,14 @@ export function Navigation() {
               <span>{language === "zh" ? "EN" : "中"}</span>
             </button>
 
+            {/* 移动端主题切换按钮 */}
+            <button
+              onClick={handleMobileThemeToggle}
+              className="flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-md bg-zinc-800/50 text-zinc-300 hover:bg-zinc-700/70 hover:text-zinc-200"
+              title={t("theme.toggle")}
+            >
+              <SunMoon size={16} />
+            </button>
             <button
               onClick={toggleMenu}
               className="p-2 text-zinc-400 hover:text-zinc-200"
@@ -156,6 +177,15 @@ export function Navigation() {
         >
           <Languages className="text-zinc-300" />
         </DockIcon>
+
+        {/* 桌面端主题切换按钮 */}
+        <DockIcon
+          onClick={handleDesktopThemeToggle}
+          className="bg-zinc-800/50 hover:bg-zinc-700/60 transition-colors"
+          title={t("theme.toggle")}
+        >
+          <SunMoon className="text-zinc-300" />
+        </DockIcon>
       </Dock>
 
       {/* 移动端汉堡菜单按钮 */}
@@ -167,7 +197,6 @@ export function Navigation() {
         <Menu size={32} />
       </button>
 
-      {/* 仅在菜单打开时渲染移动端菜单 */}
       {isMenuOpen && <MobileMenu />}
     </>
   );

@@ -30,19 +30,6 @@ export function Layout({ children, className }: LayoutProps) {
     return () => window.removeEventListener("resize", updateParticleCount);
   }, []);
 
-  // 设置背景色为黑色（固定暗色模式）
-  useEffect(() => {
-    const body = document.body;
-    body.style.backgroundColor = "#222";
-
-    // 确保应用暗色模式类
-    document.documentElement.classList.add("dark");
-
-    return () => {
-      body.style.backgroundColor = "";
-    };
-  }, []);
-
   return (
     <div className="relative min-h-screen w-full bg-background">
       {/* 粒子背景 */}

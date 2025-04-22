@@ -2,6 +2,8 @@ import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { Layout, TerminalPageTransition } from "@/components/layout";
 import { Home } from "@/pages/home/Home";
 import { About } from "@/pages/about/About";
+// 导入主题初始化工具
+import "@/lib/theme-utils";
 
 const ProjectsPage = () => (
   <div className="text-center text-4xl font-bold">作品集</div>

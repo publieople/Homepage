@@ -64,7 +64,7 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .dark body {
@@ -197,4 +197,68 @@ button:focus-visible {
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* 主题切换动画相关样式 - 使用View Transitions API */
+@keyframes clip {
+  from {
+    clip-path: circle(0% at var(--x) var(--y));
+  }
+  to {
+    clip-path: circle(var(--r) at var(--x) var(--y));
+  }
+}
+
+/* 支持View Transitions API的浏览器 */
+@supports (view-transition-name: root) {
+  ::view-transition-old(*) {
+    animation: none;
+  }
+
+  ::view-transition-new(*) {
+    animation: clip 0.75s ease-in;
+  }
+
+  ::view-transition-old(root) {
+    z-index: 1;
+  }
+
+  ::view-transition-new(root) {
+    z-index: 9999;
+  }
+
+  html.dark::view-transition-old(*) {
+    animation: clip 0.75s ease-in reverse;
+  }
+
+  html.dark::view-transition-new(*) {
+    animation: none;
+  }
+
+  html.dark::view-transition-old(root) {
+    z-index: 9999;
+  }
+
+  html.dark::view-transition-new(root) {
+    z-index: 1;
+  }
+}
+
+/* 不支持View Transitions API的浏览器回退动画 */
+@supports not (view-transition-name: root) {
+  /* 为html和body添加过渡效果 */
+  html, body {
+    transition: background-color 0.5s ease;
+  }
+
+  /* 为其他元素添加颜色过渡 */
+  * {
+    transition: color 0.5s ease, border-color 0.5s ease, background-color 0.5s ease;
+  }
+}
+
+/* 移除之前的过渡动画样式，使用View Transitions API代替 */
+:root,
+.dark {
+  color-scheme: light dark;
 }
