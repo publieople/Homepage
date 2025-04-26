@@ -7,6 +7,7 @@ import React, {
   useRef,
   useState,
 } from "react";
+import { useTheme } from "@/hooks/useTheme";
 
 interface MousePosition {
   x: number;
@@ -83,11 +84,16 @@ export const Particles: React.FC<ParticlesProps> = ({
   ease = 50,
   size = 0.4,
   refresh = false,
-  color = "#ffffff",
+  color,
   vx = 0,
   vy = 0,
   ...props
 }) => {
+  const { isDark } = useTheme();
+  // 根据主题自动设置默认颜色
+  const themeColor = isDark ? "#ffffff" : "#222222";
+  const particleColor = color || themeColor;
+
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const canvasContainerRef = useRef<HTMLDivElement>(null);
   const context = useRef<CanvasRenderingContext2D | null>(null);
@@ -126,7 +132,7 @@ export const Particles: React.FC<ParticlesProps> = ({
       }
       window.removeEventListener("resize", handleResize);
     };
-  }, [color]);
+  }, [particleColor]);
 
   useEffect(() => {
     onMouseMove();
@@ -200,7 +206,7 @@ export const Particles: React.FC<ParticlesProps> = ({
     };
   };
 
-  const rgb = hexToRgb(color);
+  const rgb = hexToRgb(particleColor);
 
   const drawCircle = (circle: Circle, update = false) => {
     if (context.current) {
