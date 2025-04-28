@@ -156,9 +156,9 @@ export function createRoutingTerminalAnimation(
   // 设置更快的动画时序以提高用户体验
   return calculateTerminalAnimation(steps, {
     initialDelay: 100,
-    typingSpeed: 2, // 加快打字速度
-    stepDelay: 100, // 缩短步骤间延迟
-    messageDisplayTime: 150, // 缩短消息显示时间
+    typingSpeed: 2,
+    stepDelay: 100,
+    messageDisplayTime: 150,
   });
 }
 
