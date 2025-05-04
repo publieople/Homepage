@@ -16,7 +16,7 @@
     "cobe": "^0.6.3",
     "i18next": "^25.0.1",
     "lucide-react": "^0.501.0",
-    "motion": "^12.7.4",
+    "motion": "^12.9.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-i18next": "^15.4.1",
@@ -38,5 +38,6 @@
     "typescript": "~5.7.2",
     "typescript-eslint": "^8.26.1",
     "vite": "^6.3.1"
-  }
+  },
+  "packageManager": "yarn@4.9.1"
 }

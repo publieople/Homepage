@@ -8,17 +8,16 @@ pnpm-debug.log*
 lerna-debug.log*
 
 # Dependencies
-node_modules
-# package-lock.json - 保留因为项目使用 yarn
+node_modules/
 yarn.lock
 .pnp
 .pnp.js
 
 # Build outputs
-dist
-dist-ssr
-build
-coverage
+dist/
+dist-ssr/
+build/
+coverage/
 *.local
 
 # Testing
@@ -47,7 +46,7 @@ next-env.d.ts
 !.vscode/extensions.json
 !.vscode/settings.json
 !.vscode/launch.json
-.idea
+.idea/
 .DS_Store
 *.suo
 *.ntvs*
@@ -58,6 +57,15 @@ next-env.d.ts
 # Vite
 .vite/
 
+# yarn
+.yarn/*
+!.yarn/cache
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
 # React / SPA
 /.history
 /out/
@@ -65,9 +73,9 @@ next-env.d.ts
 # Miscellaneous
 .tmp
 .temp
-.vercel
-.netlify
-storybook-static
+.vercel/
+.netlify/
+storybook-static/
 
 # OS specific
 Thumbs.db

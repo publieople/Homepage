@@ -13,7 +13,7 @@
 
 ## 🚦 项目进度
 
-- 当前阶段：阶段二（2024-05-16 ~ 2024-05-29），已完成约 80%
+- 当前阶段：阶段二
 - 近期重点：
   - 首页 Hero 区域与项目卡片
   - 路由/组件懒加载与构建优化
@@ -46,7 +46,7 @@
 - **构建工具**: Vite 6
 - **语言**: TypeScript
 - **样式**: TailwindCSS 4 + CSS 变量
-- **UI 组件**: Shadcn UI (基于 Tailwind)
+- **UI 组件**: Shadcn UI (基于 Tailwind) + Magic UI
 - **包管理**: Yarn
 - **代码规范**: ESLint + TypeScript-ESLint
 - **多语言**: i18next + react-i18next
