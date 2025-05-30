@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
-import { Layout, TerminalPageTransition } from "@/components/layout";
+import { Layout } from "@/components/layout";
 import { Home } from "@/pages/home/Home";
 import { About } from "@/pages/about/About";
 // 导入主题初始化工具
@@ -10,7 +10,7 @@ const ProjectsPage = () => (
 );
 
 const BlogRedirect = () => {
-  window.location.href = "https://blog.for-people.asia";
+  window.location.href = "https://blog.for-people.cn";
   return <div className="text-center text-xl">正在跳转到博客...</div>;
 };
 
@@ -23,15 +23,14 @@ function AppRoutes() {
 
   return (
     <Layout>
-      <TerminalPageTransition location={location.pathname}>
-        <Routes location={location}>
-          <Route path="/" element={<Home />} />
-          <Route path="/projects" element={<ProjectsPage />} />
-          <Route path="/blog" element={<BlogRedirect />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<ContactPage />} />
-        </Routes>
-      </TerminalPageTransition>
+      {/* 移除了 TerminalPageTransition */}
+      <Routes location={location}>
+        <Route path="/" element={<Home />} />
+        <Route path="/projects" element={<ProjectsPage />} />
+        <Route path="/blog" element={<BlogRedirect />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<ContactPage />} />
+      </Routes>
     </Layout>
   );
 }

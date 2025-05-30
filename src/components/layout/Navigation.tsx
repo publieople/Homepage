@@ -34,7 +34,7 @@ const navItems: NavItem[] = [
     path: "/blog",
     labelKey: "nav.blog",
     external: true,
-    externalUrl: "https://blog.for-people.asia",
+    externalUrl: "https://blog.for-people.cn",
   },
   { icon: CircleUserRound, path: "/about", labelKey: "nav.about" },
   { icon: Mail, path: "/contact", labelKey: "nav.contact" },
