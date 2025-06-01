@@ -12,6 +12,12 @@
     "contact": "Contact"
   },
   "home": {
+    "hero": {
+      "typed1": "Hi，I'm Publieople",
+      "typed2": "Hi，I'm a college student",
+      "typed3": "Hi，I'm an efficiency junky",
+      "typed4": "Welcome to my personal homepage🎉"
+    },
     "title": "Simple Yet Powerful",
     "subtitle": "Minimalist design, efficient development, creating impressive digital experiences",
     "projects": {
