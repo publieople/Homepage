@@ -28,7 +28,7 @@ export function Home() {
     const onWheel = (e: WheelEvent) => {
       if (ticking) return;
       ticking = true;
-      setTimeout(() => (ticking = false), 800); // 节流，防止多次触发
+      setTimeout(() => (ticking = false), 1500); // 节流，防止多次触发
       if (e.deltaY > 40 && current < 2) {
         scrollToSection(current + 1);
       } else if (e.deltaY < -40 && current > 0) {

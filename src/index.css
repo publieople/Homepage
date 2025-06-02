@@ -174,7 +174,30 @@ button:focus-visible {
     background-position: 0% 0%;
     }
   }
-}
+  --animate-aurora: aurora 8s ease-in-out infinite alternate
+;
+  @keyframes aurora {
+  0% {
+    background-position: 0% 50%;
+    transform: rotate(-5deg) scale(0.9);
+    }
+  25% {
+    background-position: 50% 100%;
+    transform: rotate(5deg) scale(1.1);
+    }
+  50% {
+    background-position: 100% 50%;
+    transform: rotate(-3deg) scale(0.95);
+    }
+  75% {
+    background-position: 50% 0%;
+    transform: rotate(3deg) scale(1.05);
+    }
+  100% {
+    background-position: 0% 50%;
+    transform: rotate(-5deg) scale(0.9);
+    }
+  }}
 
 .dark {
   --background: oklch(0.13 0.028 261.692);
@@ -282,4 +305,17 @@ button:focus-visible {
 :root,
 .dark {
   color-scheme: light dark;
+}
+
+/* 调整 Typed.js 光标样式，使其与打字文本字号一致 */
+.typed-cursor {
+  font-size: 1.25rem; /* 对应 text-xl */
+  line-height: 1;
+  vertical-align: middle;
+}
+
+@media (min-width: 640px) {
+  .typed-cursor {
+    font-size: 1.5rem; /* 对应 sm:text-2xl */
+  }
 }

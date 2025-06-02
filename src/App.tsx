@@ -23,7 +23,6 @@ function AppRoutes() {
 
   return (
     <Layout>
-      {/* 移除了 TerminalPageTransition */}
       <Routes location={location}>
         <Route path="/" element={<Home />} />
         <Route path="/projects" element={<ProjectsPage />} />
