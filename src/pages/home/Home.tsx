@@ -3,6 +3,7 @@ import { DashboardSection } from "@/components/features/hero/DashboardSection";
 import { ProjectsSkillsSection } from "@/components/features/hero/ProjectsSkillsSection";
 import { PageIndicator } from "@/components/features/hero/PageIndicator";
 import { useRef, useState, useEffect, useCallback, useMemo } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 export function Home() {
   const sectionRef0 = useRef<HTMLDivElement>(null);
@@ -98,15 +99,47 @@ export function Home() {
   }, [current, scrollToSection]);
   return (
     <div className="relative w-full h-screen overflow-hidden">
-      <div ref={sectionRefs[0]} className="h-screen w-full">
-        <HeroSection />
-      </div>
-      <div ref={sectionRefs[1]} className="h-screen w-full">
-        <DashboardSection />
-      </div>
-      <div ref={sectionRefs[2]} className="h-screen w-full">
-        <ProjectsSkillsSection />
-      </div>
+      <AnimatePresence initial={false} mode="wait">
+        {current === 0 && (
+          <motion.div
+            key="hero"
+            initial={{ opacity: 0, y: 60 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -60 }}
+            transition={{ duration: 0.7, ease: "easeInOut" }}
+            ref={sectionRefs[0]}
+            className="h-screen w-full absolute top-0 left-0"
+          >
+            <HeroSection />
+          </motion.div>
+        )}
+        {current === 1 && (
+          <motion.div
+            key="dashboard"
+            initial={{ opacity: 0, y: 60 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -60 }}
+            transition={{ duration: 0.7, ease: "easeInOut" }}
+            ref={sectionRefs[1]}
+            className="h-screen w-full absolute top-0 left-0"
+          >
+            <DashboardSection />
+          </motion.div>
+        )}
+        {current === 2 && (
+          <motion.div
+            key="projects"
+            initial={{ opacity: 0, y: 60 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -60 }}
+            transition={{ duration: 0.7, ease: "easeInOut" }}
+            ref={sectionRefs[2]}
+            className="h-screen w-full absolute top-0 left-0"
+          >
+            <ProjectsSkillsSection />
+          </motion.div>
+        )}
+      </AnimatePresence>
       <PageIndicator current={current} onDotClick={scrollToSection} />
     </div>
   );

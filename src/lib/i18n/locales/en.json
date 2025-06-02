@@ -59,5 +59,9 @@
     "light": "Light Mode",
     "dark": "Dark Mode",
     "system": "System Theme"
+  },
+  "dashboard": {
+    "name": "Publieople",
+    "bio": "College student"
   }
 }

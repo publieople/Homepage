@@ -44,7 +44,7 @@ export const HeroSection: React.FC = () => {
     >
       <img src={logo} alt="Logo" className="w-24 h-24 mb-8 drop-shadow-lg" />
       <h1 className="text-3xl sm:text-5xl font-bold text-foreground mb-4 transition-colors">
-        Publieople
+        For-people
       </h1>
       <span
         ref={el}

@@ -64,11 +64,6 @@
     - [ ] Bilibili
     - [ ] Twitter
     - [ ] 小红书
-    - [ ] Notion
-    - [ ] GitHub
-    - [ ] Bilibili
-    - [ ] Twitter
-    - [ ] 小红书
     - [ ] 微信
     - [ ] (悬停显示链接名称或预览图/提示)
 
