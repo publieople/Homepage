@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.3",
+    "@tailwindcss/oxide": "^4.1.8",
     "@tailwindcss/vite": "^4.1.4",
     "@types/three": "^0.176.0",
     "badge": "^1.0.3",

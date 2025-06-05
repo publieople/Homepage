@@ -140,7 +140,11 @@ export function Home() {
           </motion.div>
         )}
       </AnimatePresence>
-      <PageIndicator current={current} onDotClick={scrollToSection} />
+      <PageIndicator
+        totalPages={3}
+        currentPage={current}
+        onPageChange={scrollToSection}
+      />{" "}
     </div>
   );
 }
