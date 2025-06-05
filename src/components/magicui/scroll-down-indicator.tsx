@@ -10,7 +10,14 @@ export const ScrollDownIndicator: React.FC<
   const { t } = useTranslation();
   return (
     <div
-      className={`flex flex-col items-center absolute left-1/2 bottom-50 -translate-x-1/2 z-20 select-none ${className}`}
+      className={`flex flex-col items-center absolute left-1/2 z-20 select-none
+        bottom-16 sm:bottom-12 md:bottom-10 pb-[env(safe-area-inset-bottom)]
+        pointer-events-none
+        ${className}`}
+      style={{
+        // 兼容性处理，防止被底部 dock 遮挡
+        width: 'max-content',
+      }}
       {...props}
     >
       <div className="animate-bounce mb-1">

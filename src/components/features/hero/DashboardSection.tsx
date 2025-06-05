@@ -27,7 +27,7 @@ export const DashboardSection: React.FC = () => {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true, amount: 0.6 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="h-screen flex flex-col items-center justify-center"
+          className="h-screen min-h-[100dvh] flex flex-col items-center justify-center px-2 sm:px-6 md:px-12"
         >
           <DashboardRightContent />
         </motion.section>
