@@ -2,6 +2,7 @@ import { HeroSection } from "@/components/features/hero/HeroSection";
 import { DashboardSection } from "@/components/features/hero/DashboardSection";
 import { ProjectsSkillsSection } from "@/components/features/hero/ProjectsSkillsSection";
 import { PageIndicator } from "@/components/features/hero/PageIndicator";
+import { ScrollDownIndicator } from "@/components/magicui/scroll-down-indicator";
 import { useRef, useState, useEffect, useCallback, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -98,7 +99,7 @@ export function Home() {
     };
   }, [current, scrollToSection]);
   return (
-    <div className="relative w-full h-screen overflow-hidden">
+    <div className="relative w-full min-h-screen flex flex-col overflow-hidden">
       <AnimatePresence initial={false} mode="wait">
         {current === 0 && (
           <motion.div
@@ -108,7 +109,7 @@ export function Home() {
             exit={{ opacity: 0, y: -60 }}
             transition={{ duration: 0.7, ease: "easeInOut" }}
             ref={sectionRefs[0]}
-            className="h-screen w-full absolute top-0 left-0"
+            className="h-screen w-full flex justify-center items-center px-2 sm:px-0 relative"
           >
             <HeroSection />
           </motion.div>
@@ -121,7 +122,7 @@ export function Home() {
             exit={{ opacity: 0, y: -60 }}
             transition={{ duration: 0.7, ease: "easeInOut" }}
             ref={sectionRefs[1]}
-            className="h-screen w-full absolute top-0 left-0"
+            className="h-screen w-full flex items-center justify-center px-2 sm:px-0"
           >
             <DashboardSection />
           </motion.div>
@@ -134,17 +135,33 @@ export function Home() {
             exit={{ opacity: 0, y: -60 }}
             transition={{ duration: 0.7, ease: "easeInOut" }}
             ref={sectionRefs[2]}
-            className="h-screen w-full absolute top-0 left-0"
+            className="h-screen w-full flex items-center justify-center px-2 sm:px-0"
           >
             <ProjectsSkillsSection />
           </motion.div>
         )}
       </AnimatePresence>
-      <PageIndicator
+      {/* PageIndicator 响应式隐藏/缩放 */}
+      <div className="block sm:block md:block lg:block xl:block 2xl:block fixed right-2 sm:right-6 top-1/2 -translate-y-1/2 z-50">
+        <PageIndicator
         totalPages={3}
         currentPage={current}
         onPageChange={scrollToSection}
       />{" "}
+      </div>
+      {/* 滑动提示，始终显示在底部中央，避免被裁剪 */}
+      <AnimatePresence>
+        {current === 0 && (
+          <motion.div
+            initial={{ opacity: 0, y: 32 }}
+            animate={{ opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut", delay: 1.8 } }}
+            exit={{ opacity: 0, y: 32, transition: { duration: 0.7, ease: "easeOut", delay: 0 } }}
+            className="absolute left-1/2 bottom-40 -translate-x-1/2 z-50 pointer-events-none"
+          >
+            <ScrollDownIndicator />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
