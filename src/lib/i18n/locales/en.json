@@ -9,7 +9,9 @@
     "projects": "Projects",
     "blog": "Blog",
     "about": "About",
-    "contact": "Contact"
+    "contact": "Contact",
+    "menu": "Menu",
+    "close": "Close Menu"
   },
   "home": {
     "hero": {

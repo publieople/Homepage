@@ -9,7 +9,9 @@
     "projects": "作品",
     "blog": "博客",
     "about": "关于",
-    "contact": "联系"
+    "contact": "联系",
+    "menu": "菜单",
+    "close": "关闭菜单"
   },
   "home": {
     "hero": {

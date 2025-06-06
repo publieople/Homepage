@@ -1,6 +1,7 @@
 import { ReactNode, useEffect, useState } from "react";
 import { Particles } from "@/components/magicui/particles";
 import { Navigation } from "./Navigation";
+import { MobileBottomBar } from "./MobileBottomBar";
 import { cn } from "@/lib/utils";
 import { useTheme } from "@/hooks/useTheme";
 
@@ -67,7 +68,12 @@ export function Layout({ children, className }: LayoutProps) {
 
         {/* 底部导航栏 */}
         <footer className="sticky bottom-4 sm:bottom-6 flex justify-center py-2 sm:py-4">
-          <Navigation />
+          <div className="hidden sm:block w-full">
+            <Navigation />
+          </div>
+          <div className="block sm:hidden w-full">
+            <MobileBottomBar />
+          </div>
         </footer>
       </div>
     </div>
