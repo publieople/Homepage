@@ -53,8 +53,8 @@ export function PageIndicator({
             className={cn(
               "relative flex items-center justify-center w-9 h-9 md:w-8 md:h-8 rounded-full border-2 transition-all duration-300 group focus:outline-none",
               isActive
-                ? "bg-primary border-primary shadow-lg" // 使用主色增强对比
-                : "bg-transparent border-muted-foreground/60 hover:border-muted-foreground dark:border-muted-foreground/50 dark:hover:border-muted-foreground/80" // 使用中性色
+                ? "bg-primary border-primary shadow-lg" // 激活时主色
+                : "bg-zinc-900/80 dark:bg-zinc-100/80 border-muted-foreground/60 hover:border-muted-foreground dark:border-muted-foreground/50 dark:hover:border-muted-foreground/80" // 亮色黑/暗色亮灰（暗色更亮）
             )}
             whileHover={{ scale: 1.18 }}
             whileTap={{ scale: 0.92 }}
@@ -67,8 +67,8 @@ export function PageIndicator({
               className={cn(
                 "transition-colors duration-300 absolute inset-0 flex items-center justify-center",
                 isActive
-                  ? "text-primary-foreground" // 主色前景确保对比度
-                  : "text-muted-foreground dark:text-muted-foreground" // 中性色统一处理
+                  ? "text-white/95" // 激活时更亮的白色
+                  : "text-white/60" // 非激活时较暗的白色
               )}
               animate={{ scale: isActive ? 1.18 : 1, opacity: 1 }}
               transition={{ type: "spring", stiffness: 400, damping: 25 }}
@@ -80,8 +80,8 @@ export function PageIndicator({
               className={cn(
                 "transition-all duration-300 absolute inset-0 flex items-center justify-center text-xs font-medium px-2 py-1 rounded select-none backdrop-blur-sm",
                 isActive
-                  ? "text-primary-foreground bg-primary/20" // 激活状态增强可读性
-                  : "text-muted-foreground bg-muted/50 dark:bg-muted/30" // 中性背景适配双模式
+                  ? "text-primary-foreground bg-primary/20"
+                  : "text-muted-foreground bg-muted/50 dark:bg-muted/30"
               )}
               initial={{ opacity: 0, scale: 0.9, y: 8 }}
               whileHover={{ opacity: 1, scale: 1.08, y: 0 }}
@@ -89,7 +89,6 @@ export function PageIndicator({
               transition={{ type: "spring", stiffness: 320, damping: 22 }}
               style={{ pointerEvents: 'none' }}
             >
-              {tooltips[index]}
             </motion.span>
           </motion.button>
         );
