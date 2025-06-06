@@ -47,31 +47,30 @@ export const HeroSection: React.FC = () => {
       >
         <div className="relative z-10 flex flex-col items-center w-full max-w-xl">
           <div className="flex flex-col items-center gap-4 py-6 px-3 sm:py-8 sm:px-6 md:px-8 bg-background/80 rounded-2xl w-full max-w-md sm:max-w-xl">
-            <div className="relative mb-4">
-              <ShineBorder
-                borderWidth={2}
-                duration={10}
-                shineColor={["#8B5CF6", "#FE8BBB"]}
-                className="rounded-full size-20 sm:size-28"
-              />
-              <img
-                src="/icon.png"
-                alt="Logo"
-                className="w-16 h-16 sm:w-24 sm:h-24 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 drop-shadow-lg"
-              />
-            </div>
-            <TextAnimate
-              animation="slideUp"
-              className="text-2xl sm:text-4xl md:text-5xl font-bold text-foreground mb-2 text-center"
-              as="h1"
-            >
-              For-people
-            </TextAnimate>
-            <div className="flex justify-center w-full">
-              <span
-                ref={el}
-                className="text-base sm:text-xl md:text-2xl text-foreground/80 whitespace-nowrap text-center"
-              ></span>
+            <div className="relative mb-4 w-full flex items-end justify-center">
+              <div className="absolute bottom-32 left-1/2 -translate-x-1/2 z-0">
+                <ShineBorder
+                  borderWidth={2}
+                  duration={10}
+                  shineColor={["#8B5CF6AA", "#FE8BBBAA"]}
+                  className="rounded-full size-20 sm:size-28 opacity-60"
+                />
+              </div>
+              <div className="relative z-10 flex flex-col items-center w-full">
+                <TextAnimate
+                  animation="slideUp"
+                  className="text-2xl sm:text-4xl md:text-5xl font-bold text-foreground mb-2 text-center"
+                  as="h1"
+                >
+                  For the people
+                </TextAnimate>
+                <div className="flex justify-center w-full">
+                  <span
+                    ref={el}
+                    className="text-base sm:text-xl md:text-2xl text-foreground/80 whitespace-nowrap text-center"
+                  ></span>
+                </div>
+              </div>
             </div>
             <div className="flex justify-center w-full mt-1">
               <AuroraText
