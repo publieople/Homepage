@@ -109,7 +109,7 @@ export function Home() {
             exit={{ opacity: 0, y: -60 }}
             transition={{ duration: 0.7, ease: "easeInOut" }}
             ref={sectionRefs[0]}
-            className="h-screen w-full flex justify-center items-center px-2 sm:px-0 relative"
+            className="h-screen w-full flex justify-center items-center px-2 sm:px-0"
           >
             <HeroSection />
           </motion.div>
@@ -156,7 +156,7 @@ export function Home() {
             initial={{ opacity: 0, y: 32 }}
             animate={{ opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut", delay: 1.8 } }}
             exit={{ opacity: 0, y: 32, transition: { duration: 0.7, ease: "easeOut", delay: 0 } }}
-            className="absolute left-1/2 bottom-40 -translate-x-1/2 z-50 pointer-events-none"
+            className="absolute left-1/2 bottom-[20vh] -translate-x-1/2 z-50 pointer-events-none"
           >
             <ScrollDownIndicator />
           </motion.div>

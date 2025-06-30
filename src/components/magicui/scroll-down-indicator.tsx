@@ -10,8 +10,8 @@ export const ScrollDownIndicator: React.FC<
   const { t } = useTranslation();
   return (
     <div
-      className={`flex flex-col items-center absolute left-1/2 z-20 select-none
-        bottom-16 sm:bottom-12 md:bottom-10 pb-[env(safe-area-inset-bottom)]
+      className={`flex flex-col items-center z-20 select-none
+        pb-[env(safe-area-inset-bottom)]
         pointer-events-none
         ${className}`}
       style={{
