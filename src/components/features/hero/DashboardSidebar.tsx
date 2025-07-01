@@ -49,18 +49,18 @@ export const DashboardSidebar: React.FC = () => {
         <SidebarNavLink
           icon={<Book size={18} />}
           label={t("nav.blog", "博客")}
-          href="#blog"
+          href="https://blog.for-people.cn"
         />
         <SidebarNavLink
           icon={<Github size={18} />}
           label="GitHub"
-          href="https://github.com/"
+          href="https://github.com/publieople"
           external
         />
         <SidebarNavLink
           icon={<Twitter size={18} />}
           label="Twitter"
-          href="https://twitter.com/"
+          href="https://twitter.com/publieople"
           external
         />
       </nav>

@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
+import { useGeolocation } from "@/hooks/useGeolocation";
 import {
   Github,
   Twitter,
   Book,
   Globe,
   CloudSun,
+  CalendarClock,
   MapPin,
   RefreshCw,
   ExternalLink,
@@ -28,7 +30,7 @@ const TimeDisplay: React.FC = () => {
       transition={{ duration: 0.6, ease: "easeOut" }}
       className="flex items-center gap-2 text-xl font-semibold text-foreground"
     >
-      <CloudSun size={20} className="text-primary" />
+      <CalendarClock size={20} className="text-primary" />
       {now.toLocaleTimeString(i18n.language, {
         hour: "2-digit",
         minute: "2-digit",
@@ -41,22 +43,82 @@ const TimeDisplay: React.FC = () => {
   );
 };
 
-// 位置组件（占位）
-const LocationDisplay: React.FC = () => (
-  <motion.div
-    initial={{ opacity: 0, y: 20 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.7, delay: 0.1, ease: "easeOut" }}
-    className="flex items-center gap-2 text-base text-muted-foreground"
-  >
-    <MapPin size={18} className="text-primary" />
-    <span>中国 · 北京</span>
-  </motion.div>
-);
+// 位置组件
+const LocationDisplay: React.FC = () => {
+  const { latitude, longitude, error: geoError } = useGeolocation();
+  const [location, setLocation] = useState("正在获取位置...");
+  const [error, setError] = useState<string | null>(null);
 
-// 天气组件（API占位，可扩展）
+  useEffect(() => {
+    if (geoError) {
+      setError(geoError);
+      return;
+    }
+
+    if (latitude && longitude) {
+      const fetchLocation = async () => {
+        try {
+          const response = await fetch(
+            `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}&accept-language=zh-CN`
+          );
+          if (!response.ok) throw new Error("API Error");
+          const data = await response.json();
+          const { country, city, town, village, county } = data.address;
+          const displayCity = city || town || county || village || "未知地区";
+          setLocation(`${country} · ${displayCity}`);
+        } catch (err) {
+          setError("无法解析位置。");
+          console.error(err);
+        }
+      };
+      fetchLocation();
+    }
+  }, [latitude, longitude, geoError]);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.7, delay: 0.1, ease: "easeOut" }}
+      className="flex items-center gap-2 text-base text-muted-foreground"
+    >
+      <MapPin size={18} className="text-primary" />
+      <span>{error || location}</span>
+    </motion.div>
+  );
+};
+
+// 天气组件
 const WeatherDisplay: React.FC = () => {
-  // 预留API集成，现为静态占位
+  const { latitude, longitude, error: geoError } = useGeolocation();
+  const [weather, setWeather] = useState("正在获取天气...");
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (geoError) {
+      setError(geoError);
+      return;
+    }
+
+    if (latitude && longitude) {
+      const fetchWeather = async () => {
+        try {
+          const response = await fetch(
+            `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`
+          );
+          if (!response.ok) throw new Error("API Error");
+          const data = await response.json();
+          const temp = data.current_weather.temperature;
+          setWeather(`当前 ${temp}°C`);
+        } catch (err) {
+          setError("无法获取天气。");
+          console.error(err);
+        }
+      };
+      fetchWeather();
+    }
+  }, [latitude, longitude, geoError]);
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -64,9 +126,8 @@ const WeatherDisplay: React.FC = () => {
       transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
       className="flex items-center gap-2 text-base text-muted-foreground"
     >
-      <CloudSun size={18} className="text-primary animate-spin-slow" />
-      <span>晴 25°C</span>
-      <span className="text-xs text-muted-foreground ml-2">(API占位)</span>
+      <CloudSun size={18} className="text-primary" />
+      <span>{error || weather}</span>
     </motion.div>
   );
 };
