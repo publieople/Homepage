@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { useGeolocation } from "@/hooks/useGeolocation";
+import { quotes, Quote } from "@/lib/quotes";
 import {
   Github,
   Twitter,
@@ -132,37 +133,55 @@ const WeatherDisplay: React.FC = () => {
   );
 };
 
-// 一言组件（支持刷新、动画，预留增删改查）
+// 一言组件
 const Hitokoto: React.FC = () => {
-  const { t } = useTranslation();
-  const [quote, setQuote] = useState("生活不止眼前的苟且，还有诗和远方。");
+  const [currentQuote, setCurrentQuote] = useState<Quote | null>(null);
   const [loading, setLoading] = useState(false);
-  // 刷新一言（模拟API）
-  const refresh = async () => {
+
+  const getRandomQuote = React.useCallback(() => {
+    const randomIndex = Math.floor(Math.random() * quotes.length);
+    return quotes[randomIndex];
+  }, []);
+
+  useEffect(() => {
+    setCurrentQuote(getRandomQuote());
+  }, [getRandomQuote]);
+
+  const refresh = () => {
     setLoading(true);
     setTimeout(() => {
-      setQuote("世界很大，梦想更大。"); // 可替换为真实API
+      setCurrentQuote(getRandomQuote());
       setLoading(false);
-    }, 800);
+    }, 500);
   };
+
+  if (!currentQuote) {
+    return null; // 或者返回一个加载中的占位符
+  }
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.7, delay: 0.3, ease: "easeOut" }}
-      className="relative text-lg font-medium text-foreground px-4 py-2 rounded-xl bg-background/70 shadow border border-border/20 mt-2 flex items-center"
+      className="w-full max-w-xl"
     >
-      <span className="magicui-typing-animation">
-        “{t("dashboard.hitokoto", quote)}”
-      </span>
-      <button
-        className="ml-2 p-1 rounded hover:bg-primary/10 transition-colors"
-        onClick={refresh}
-        aria-label="刷新一言"
-        disabled={loading}
-      >
-        <RefreshCw size={18} className={loading ? "animate-spin" : ""} />
-      </button>
+      <div className="relative text-lg font-medium text-foreground p-4 rounded-xl bg-background/70 shadow border border-border/20 flex flex-col">
+        <div className="flex-grow">
+          <span className="magicui-typing-animation">“{currentQuote.content}”</span>
+        </div>
+        <div className="flex justify-between items-center mt-2">
+          <span className="text-sm text-muted-foreground">—— {currentQuote.source}</span>
+          <button
+            className="p-1 rounded hover:bg-primary/10 transition-colors"
+            onClick={refresh}
+            aria-label="刷新一言"
+            disabled={loading}
+          >
+            <RefreshCw size={18} className={loading ? "animate-spin" : ""} />
+          </button>
+        </div>
+      </div>
     </motion.div>
   );
 };
