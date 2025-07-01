@@ -1,7 +1,9 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
-import { Github, Twitter, Book, Home, User } from "lucide-react"; // 可替换为 Magic UI 图标
+import { Book, Home, User } from "lucide-react"; // 可替换为 Magic UI 图标
+import { GithubIcon } from "@/components/icons/GithubIcon";
+import { XIcon } from "@/components/icons/XIcon";
 import clsx from "clsx";
 
 // 侧边栏：头像、简介、导航
@@ -52,13 +54,13 @@ export const DashboardSidebar: React.FC = () => {
           href="https://blog.for-people.cn"
         />
         <SidebarNavLink
-          icon={<Github size={18} />}
+          icon={<GithubIcon size={18} />}
           label="GitHub"
           href="https://github.com/publieople"
           external
         />
         <SidebarNavLink
-          icon={<Twitter size={18} />}
+          icon={<XIcon size={18} />}
           label="Twitter"
           href="https://twitter.com/publieople"
           external

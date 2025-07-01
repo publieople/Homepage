@@ -6,8 +6,6 @@ import { useCachedState } from "@/hooks/useCachedState";
 import { quotes, Quote } from "@/lib/quotes";
 import { AnimatePresence } from "framer-motion";
 import {
-  Github,
-  Twitter,
   Book,
   Globe,
   CloudSun,
@@ -18,6 +16,8 @@ import {
   Link2,
   Quote as QuoteIcon,
 } from "lucide-react";
+import { GithubIcon } from "@/components/icons/GithubIcon";
+import { XIcon } from "@/components/icons/XIcon";
 
 // 时间/日期组件
 const TimeDisplay: React.FC = () => {
@@ -80,7 +80,7 @@ const LocationDisplay: React.FC = () => {
           console.error(err);
           // 仅在没有缓存时显示错误
           if (location === "正在获取位置...") {
-            setError("无法解析位置。");
+            setError("无法解析位置");
           }
         }
       };
@@ -132,7 +132,7 @@ const WeatherDisplay: React.FC = () => {
         } catch (err) {
           console.error(err);
           if (weather === "正在获取天气...") {
-            setError("无法获取天气。");
+            setError("无法获取天气");
           }
         }
       };
@@ -239,13 +239,13 @@ const Hitokoto: React.FC = () => {
 // 社交/外链（含悬停提示/预览）
 const socialLinks = [
   {
-    icon: <Github size={22} />,
+    icon: <GithubIcon size={22} />,
     label: "GitHub",
     href: "https://github.com/publieople",
     preview: "https://github.com/publieople",
   },
   {
-    icon: <Twitter size={22} />,
+    icon: <XIcon size={22} />,
     label: "Twitter",
     href: "https://x.com/publieople",
     preview: "https://x.com/publieople",
@@ -293,7 +293,7 @@ const QuickLinks: React.FC = () => (
       rel="noopener noreferrer"
       className="flex items-center gap-1 px-3 py-1 rounded-lg bg-primary/10 hover:bg-primary/20 text-primary font-medium transition-all"
     >
-      <Github size={16} /> GitHub <ExternalLink size={14} />
+      <GithubIcon size={16} /> GitHub <ExternalLink size={14} />
     </a>
     <a
       href="https://blog.for-people.cn"
