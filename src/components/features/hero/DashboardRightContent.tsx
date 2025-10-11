@@ -185,21 +185,39 @@ const Hitokoto: React.FC = () => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.7, delay: 0.3, ease: "easeOut" }}
-      className="w-full max-w-xl"
+      className="w-140"
     >
-      <div className="relative overflow-hidden rounded-xl border border-primary/20 bg-background/50 p-4 shadow-lg backdrop-blur-sm transition-all duration-300 hover:shadow-primary/10">
+      <motion.div
+        layout
+        initial={{ scale: 0.95, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.95, opacity: 0 }}
+        transition={{
+          type: "spring",
+          stiffness: 200,
+          damping: 20,
+          mass: 0.8,
+          duration: 0.6
+        }}
+        className="relative overflow-hidden rounded-xl border border-primary/20 bg-background/50 p-4 shadow-lg backdrop-blur-sm transition-all duration-300 hover:shadow-primary/10 w-full"
+      >
         <QuoteIcon
           className="absolute -left-2 -top-2 h-16 w-16 text-primary/10"
           aria-hidden="true"
         />
-        <div className="relative z-10 flex h-full min-h-[6rem] flex-col justify-between">
+        <div className="relative z-10 flex h-full flex-col justify-between">
           <AnimatePresence mode="wait">
             <motion.p
               key={currentQuote?.content}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3, ease: "easeInOut" }}
+              initial={{ opacity: 0, y: 20, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -20, scale: 0.95 }}
+              transition={{
+                type: "spring",
+                stiffness: 400,
+                damping: 25,
+                duration: 0.4
+              }}
               className="flex-grow text-base font-medium text-foreground sm:text-lg"
             >
               {currentQuote?.content}
@@ -208,17 +226,25 @@ const Hitokoto: React.FC = () => {
           <div className="mt-4 flex items-end justify-between">
             <motion.span
               key={currentQuote?.source}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.3, delay: 0.2 }}
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{
+                type: "spring",
+                stiffness: 500,
+                damping: 30,
+                delay: 0.1,
+                duration: 0.3
+              }}
               className="text-xs italic text-muted-foreground sm:text-sm"
             >
               —— {currentQuote?.source}
             </motion.span>
-            <button
+            <motion.button
               onClick={refresh}
               disabled={loading}
               aria-label="刷新一言"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               className="group rounded-full p-2 transition-colors duration-200 ease-in-out hover:bg-primary/10 focus:outline-none focus:ring-2 focus:ring-primary/50"
             >
               <RefreshCw
@@ -227,10 +253,10 @@ const Hitokoto: React.FC = () => {
                   loading ? "animate-spin" : ""
                 }`}
               />
-            </button>
+            </motion.button>
           </div>
         </div>
-      </div>
+      </motion.div>
     </motion.div>
   );
 };
