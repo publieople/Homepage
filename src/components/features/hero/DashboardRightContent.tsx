@@ -13,7 +13,6 @@ import {
   MapPin,
   RefreshCw,
   ExternalLink,
-  Link2,
   Quote as QuoteIcon,
 } from "lucide-react";
 import { GithubIcon } from "@/components/icons/GithubIcon";
@@ -284,33 +283,6 @@ const SocialLinks: React.FC = () => (
   </div>
 );
 
-// 快捷入口（如博客/GitHub等，带动画）
-const QuickLinks: React.FC = () => (
-  <div className="flex gap-3 mt-2 flex-wrap justify-center">
-    <a
-      href="https://github.com/publieople"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="flex items-center gap-1 px-3 py-1 rounded-lg bg-primary/10 hover:bg-primary/20 text-primary font-medium transition-all"
-    >
-      <GithubIcon size={16} /> GitHub <ExternalLink size={14} />
-    </a>
-    <a
-      href="https://blog.for-people.cn"
-      className="flex items-center gap-1 px-3 py-1 rounded-lg bg-primary/10 hover:bg-primary/20 text-primary font-medium transition-all"
-    >
-      <Book size={16} /> Blog <ExternalLink size={14} />
-    </a>
-    <a
-      href="https://notion.so/"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="flex items-center gap-1 px-3 py-1 rounded-lg bg-primary/10 hover:bg-primary/20 text-primary font-medium transition-all"
-    >
-      <Link2 size={16} /> Notion <ExternalLink size={14} />
-    </a>
-  </div>
-);
 
 export const DashboardRightContent: React.FC = () => {
   return (
@@ -320,7 +292,6 @@ export const DashboardRightContent: React.FC = () => {
       <WeatherDisplay />
       <Hitokoto />
       <SocialLinks />
-      <QuickLinks />
     </div>
   );
 };

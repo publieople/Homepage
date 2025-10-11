@@ -56,21 +56,23 @@ export const HeroSection: React.FC = () => {
                   className="rounded-full size-20 sm:size-28 opacity-60"
                 />
               </div>
-              <div className="relative z-10 flex flex-col items-center w-full">
-                <TextAnimate
-                  animation="slideUp"
-                  className="text-2xl sm:text-4xl md:text-5xl font-bold text-foreground mb-2 text-center"
-                  as="h1"
-                >
-                  For the people
-                </TextAnimate>
-                <div className="flex justify-center w-full">
-                  <span
-                    ref={el}
-                    className="text-base sm:text-xl md:text-2xl text-foreground/80 whitespace-nowrap text-center"
-                  ></span>
-                </div>
+            <div className="relative z-10 flex flex-col items-center w-full">
+              <TextAnimate
+                animation="slideUp"
+                className="text-2xl sm:text-4xl md:text-5xl font-bold text-foreground mb-2 text-center"
+                as="h1"
+                once={false}
+                startOnView={false}
+              >
+                For the people
+              </TextAnimate>
+              <div className="flex justify-center w-full">
+                <span
+                  ref={el}
+                  className="text-base sm:text-xl md:text-2xl text-foreground/80 whitespace-nowrap text-center"
+                ></span>
               </div>
+            </div>
             </div>
             <div className="flex justify-center w-full mt-1">
               <AuroraText
