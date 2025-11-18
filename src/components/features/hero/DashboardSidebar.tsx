@@ -19,12 +19,16 @@ export const DashboardSidebar: React.FC = () => {
         "backdrop-blur-md border border-border/30 w-full sm:w-64 max-w-xs"
       )}
     >
-      {/* 头像 */}
-      <div className="w-20 h-20 rounded-full overflow-hidden border-2 border-primary shadow-md">
+      {/* 头像 - 添加渐变边框效果 */}
+      <div className={clsx(
+        "w-24 h-24 rounded-full overflow-hidden shadow-lg p-1",
+        "bg-gradient-to-br from-primary/20 to-secondary/20",
+        "dark:from-primary/30 dark:to-secondary/30"
+      )}>
         <img
           src="/avatar.png"
           alt="avatar"
-          className="w-full h-full object-cover"
+          className="w-full h-full rounded-full object-cover"
         />
       </div>
       {/* 简介 */}
@@ -88,11 +92,14 @@ const SidebarNavLink: React.FC<SidebarNavLinkProps> = ({
     target={external ? "_blank" : undefined}
     rel={external ? "noopener noreferrer" : undefined}
     className={clsx(
-      "flex items-center gap-2 px-3 py-2 rounded-lg transition-all group",
-      "hover:bg-primary/10 hover:text-primary text-foreground"
+      "flex items-center gap-3 px-4 py-3 rounded-lg transition-all group",
+      "hover:bg-primary/15 hover:text-primary text-foreground",
+      "min-h-[48px]", // 增大触摸目标
+      "bg-card/40 hover:bg-primary/20",
+      "dark:bg-card/30 dark:hover:bg-primary/25"
     )}
   >
     <span className="transition-transform group-hover:scale-110">{icon}</span>
-    <span className="text-sm font-medium">{label}</span>
+    <span className="text-base font-medium">{label}</span>
   </a>
 );

@@ -4,7 +4,7 @@ import { DashboardLayout, DashboardMain } from "./DashboardLayout";
 import { DashboardRightContent } from "./DashboardRightContent";
 
 /**
- * 仪表盘区块（占位，后续可扩展为时间、天气、外链等）
+ * 仪表盘区块
  */
 export const DashboardSection: React.FC = () => {
   const parallaxRef = useRef<HTMLDivElement>(null);
