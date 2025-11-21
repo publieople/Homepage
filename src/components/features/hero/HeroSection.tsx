@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from "react";
 import Typed from "typed.js";
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
-import { ShineBorder } from "@/components/magicui/shine-border";
 import { TextAnimate } from "@/components/magicui/text-animate";
 import { AuroraText } from "@/components/magicui/aurora-text";
 
@@ -40,47 +39,43 @@ export const HeroSection: React.FC = () => {
   return (
     <div className="relative flex flex-col items-center justify-center w-full px-2 sm:px-4 md:px-8 select-none overflow-hidden">
       <motion.section
-        initial={{ opacity: 0, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.9, ease: "easeOut" }}
-        className="relative flex flex-col items-center justify-center w-full max-w-xl z-10 h-full"
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+        className="relative flex flex-col items-center justify-center w-full max-w-2xl z-10"
       >
-        <div className="relative z-10 flex flex-col items-center w-full max-w-xl">
-          <div className="flex flex-col items-center gap-4 py-6 px-3 sm:py-8 sm:px-6 md:px-8 bg-background/80 rounded-2xl w-full max-w-md sm:max-w-xl">
-            <div className="relative mb-4 w-full flex items-end justify-center">
-              <div className="absolute bottom-32 left-1/2 -translate-x-1/2 z-0">
-                <ShineBorder
-                  borderWidth={2}
-                  duration={10}
-                  shineColor={["#8B5CF6AA", "#FE8BBBAA"]}
-                  className="rounded-full size-20 sm:size-28 opacity-60"
-                />
-              </div>
-            <div className="relative z-10 flex flex-col items-center w-full">
+        <div className="relative z-10 flex flex-col items-center w-full">
+          <div className="flex flex-col items-center gap-6 py-10 px-6 sm:px-10 bg-white/30 dark:bg-black/30 backdrop-blur-xl rounded-[2rem] border border-white/20 shadow-2xl w-full">
+            
+            <div className="relative z-10 flex flex-col items-center w-full space-y-4">
               <TextAnimate
-                animation="slideUp"
-                className="text-2xl sm:text-4xl md:text-5xl font-bold text-foreground mb-2 text-center"
+                animation="blurInUp"
+                by="character"
+                className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-foreground text-center bg-clip-text text-transparent bg-gradient-to-b from-foreground to-foreground/60"
                 as="h1"
                 once={false}
                 startOnView={false}
               >
                 For the people
               </TextAnimate>
-              <div className="flex justify-center w-full">
+              
+              <div className="flex justify-center w-full h-8 sm:h-10">
                 <span
                   ref={el}
-                  className="text-base sm:text-xl md:text-2xl text-foreground/80 whitespace-nowrap text-center"
+                  className="text-lg sm:text-2xl md:text-3xl font-medium text-foreground/80 whitespace-nowrap text-center"
                 ></span>
               </div>
             </div>
-            </div>
-            <div className="flex justify-center w-full mt-1">
+
+            <div className="w-full h-px bg-gradient-to-r from-transparent via-foreground/20 to-transparent my-2" />
+
+            <div className="flex justify-center w-full">
               <AuroraText
-                className="block text-lg sm:text-2xl md:text-3xl tracking-tight leading-none select-text"
+                className="text-xl sm:text-3xl font-light tracking-[0.2em] opacity-80"
                 colors={["#FF0080", "#7928CA", "#0070F3", "#38bdf8"]}
                 speed={1.5}
               >
-                ────────
+                DESIGN & CODE
               </AuroraText>
             </div>
           </div>

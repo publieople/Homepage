@@ -1,0 +1,40 @@
+.liquid-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  overflow: hidden;
+  background: linear-gradient(135deg, #f0f4ff 0%, #e0e7ff 100%);
+}
+
+.liquid-blur {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background-image: radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.4), transparent 50%),
+                    radial-gradient(circle at 80% 20%, rgba(254, 139, 187, 0.4), transparent 40%),
+                    radial-gradient(circle at 20% 80%, rgba(56, 189, 248, 0.4), transparent 40%);
+  filter: url(#liquid-effect);
+  animation: liquid-move 20s ease-in-out infinite alternate;
+}
+
+@keyframes liquid-move {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(-10%, -10%) scale(1.1);
+  }
+  100% {
+    transform: translate(10%, 10%) scale(1);
+  }
+}
+
+/* 隐藏 SVG 滤镜定义 */
+.liquid-background svg {
+  display: none;
+}

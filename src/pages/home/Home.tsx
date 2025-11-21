@@ -3,6 +3,7 @@ import { DashboardSection } from "@/components/features/hero/DashboardSection";
 import { ProjectsSkillsSection } from "@/components/features/hero/ProjectsSkillsSection";
 import { PageIndicator } from "@/components/features/hero/PageIndicator";
 import { ScrollDownIndicator } from "@/components/magicui/scroll-down-indicator";
+import LiquidBackground from "@/components/layout/LiquidBackground";
 import { useRef, useState, useEffect, useCallback, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -128,16 +129,17 @@ export function Home() {
   }, []);
   return (
     <div className="relative w-full min-h-screen flex flex-col overflow-hidden">
+      <LiquidBackground />
       <AnimatePresence initial={false} mode="wait">
         {current === 0 && (
           <motion.div
             key="hero"
-            initial={{ opacity: 0, y: 60 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -60 }}
-            transition={{ duration: 0.7, ease: "easeInOut" }}
+            initial={{ opacity: 0, filter: "blur(10px)" }}
+            animate={{ opacity: 1, filter: "blur(0px)" }}
+            exit={{ opacity: 0, filter: "blur(10px)" }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             ref={sectionRefs[0]}
-            className="h-screen w-full flex justify-center items-center px-2 sm:px-0"
+            className="h-screen w-full flex justify-center items-center px-4 sm:px-6 md:px-8"
           >
             <HeroSection />
           </motion.div>
@@ -145,12 +147,12 @@ export function Home() {
         {current === 1 && (
           <motion.div
             key="dashboard"
-            initial={{ opacity: 0, y: 60 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -60 }}
-            transition={{ duration: 0.7, ease: "easeInOut" }}
+            initial={{ opacity: 0, filter: "blur(10px)" }}
+            animate={{ opacity: 1, filter: "blur(0px)" }}
+            exit={{ opacity: 0, filter: "blur(10px)" }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             ref={sectionRefs[1]}
-            className="h-screen w-full flex items-center justify-center px-2 sm:px-0"
+            className="h-screen w-full flex items-center justify-center px-4 sm:px-6 md:px-8"
           >
             <DashboardSection />
           </motion.div>
@@ -158,12 +160,12 @@ export function Home() {
         {current === 2 && (
           <motion.div
             key="projects"
-            initial={{ opacity: 0, y: 60 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -60 }}
-            transition={{ duration: 0.7, ease: "easeInOut" }}
+            initial={{ opacity: 0, filter: "blur(10px)" }}
+            animate={{ opacity: 1, filter: "blur(0px)" }}
+            exit={{ opacity: 0, filter: "blur(10px)" }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             ref={sectionRefs[2]}
-            className="h-screen w-full flex items-center justify-center px-2 sm:px-0"
+            className="h-screen w-full flex items-center justify-center px-4 sm:px-6 md:px-8"
           >
             <ProjectsSkillsSection />
           </motion.div>

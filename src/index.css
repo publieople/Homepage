@@ -75,12 +75,13 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+/* 移除 body 的背景颜色，由 LiquidBackground 控制 */
 .dark body {
-  background-color: #000000;
+  /* background-color: #000000; */
 }
 
 body:not(.dark) {
-  background-color: #ffffff;
+  /* background-color: #ffffff; */
   color: #213547;
 }
 
@@ -308,7 +309,7 @@ button:focus-visible {
 
 /* 调整 Typed.js 光标样式，使其与打字文本字号一致 */
 .typed-cursor {
-  font-size: 1.25rem; /* 对应 text-xl */
+  font-size: 1.125rem; /* 对应 text-lg */
   line-height: 1;
   vertical-align: middle;
 }
@@ -316,5 +317,11 @@ button:focus-visible {
 @media (min-width: 640px) {
   .typed-cursor {
     font-size: 1.5rem; /* 对应 sm:text-2xl */
+  }
+}
+
+@media (min-width: 768px) {
+  .typed-cursor {
+    font-size: 1.875rem; /* 对应 md:text-3xl */
   }
 }
